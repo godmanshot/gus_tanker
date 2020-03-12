@@ -1,5 +1,7 @@
 <?php
 
+use App\Client;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 
 Admin::routes();
@@ -16,5 +18,27 @@ Route::group([
     $router->resource('car-models', CarModelController::class);
     $router->resource('cars', CarController::class);
     $router->resource('works', WorkController::class);
+    
+    Route::get('/api/clients', function(Request $request) {
+        $q = $request->get('q');
+        
+        $clients = Client::where(function($query) use ($q) {
+    
+            return $query
+                ->where('first_name', 'like', "%$q%")
+                ->orWhere('last_name', 'like', "%$q%")
+                ->orWhere('phone', 'like', "%$q%")
+                ->orWhere('iin', 'like', "%$q%");
+    
+        })->paginate();
+
+        $clients->getCollection()->transform(function($item, $key)
+        {
+            return ['id' => $item->id, 'text' => $item->info];
+        });
+
+        return $clients;
+    });
 
 });
+
