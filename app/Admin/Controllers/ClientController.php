@@ -61,7 +61,7 @@ class ClientController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    public function form()
     {
         $form = new Form(new Client());
 

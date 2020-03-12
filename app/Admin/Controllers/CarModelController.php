@@ -61,9 +61,8 @@ class CarModelController extends AdminController
 
         $form->text('name', __('Название'));
 
-        $manufacturers =  \App\CarManufacturer::all()->pluck('name', 'id');
-
-        $form->select('manufacturer_id', 'Производитель')->options($manufacturers);
+        $form->select('manufacturer_id', 'Производитель')
+            ->options(\App\CarManufacturer::all()->pluck('name', 'id'));
 
         return $form;
     }

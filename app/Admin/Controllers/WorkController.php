@@ -57,10 +57,15 @@ class WorkController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Work());
+        // $form = new Form(new Work());
+
+        $steps = [
+            'client' => \App\Admin\Forms\Work\ClientForm::class,
+            'car' => \App\Admin\Forms\Work\CarForm::class,
+            'work' => \App\Admin\Forms\Work\WorkForm::class,
+        ];
 
 
-
-        return $form;
+        return \Encore\Admin\Widgets\MultipleSteps::make($steps);
     }
 }
