@@ -1,0 +1,267 @@
+{
+    "locale": "ru",
+    "pages": [
+     {
+      "name": "page1",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "panel5",
+        "elements": [
+         {
+          "type": "html",
+          "name": "question6",
+          "html": {
+           "default": "<h2 style=\"color: #3c8dbc;\">Баллон</h2>",
+           "ru": "<h2 style=\"color: #3c8dbc;\">Тип газа</h2>"
+          }
+         },
+         {
+          "type": "radiogroup",
+          "name": "question2",
+          "title": "Тип газа",
+          "isRequired": true,
+          "choices": [
+           {
+            "value": "item1",
+            "text": "LPG"
+           },
+           {
+            "value": "item2",
+            "text": "CNG"
+           }
+          ],
+          "colCount": 2
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "panel1",
+        "elements": [
+         {
+          "type": "html",
+          "name": "question16",
+          "html": "<h2 style=\"color: #3c8dbc;\">Баллон</h2>"
+         },
+         {
+          "type": "dropdown",
+          "name": "question1",
+          "title": "Производитель баллона",
+          "isRequired": true,
+          "choices": [
+           "item1",
+           "item2"
+          ]
+         },
+         {
+          "type": "radiogroup",
+          "name": "question3",
+          "visibleIf": "{question2} = 'item1'",
+          "title": "Тип баллона(LPG)",
+          "isRequired": true,
+          "choices": [
+           {
+            "value": "item1",
+            "text": "Тороидальный"
+           },
+           {
+            "value": "item2",
+            "text": "Цилиндрический"
+           }
+          ]
+         },
+         {
+          "type": "radiogroup",
+          "name": "question17",
+          "visibleIf": "{question3} = 'item1'",
+          "title": {
+           "ru": "Тип клапана(LPG)"
+          },
+          "isRequired": true,
+          "choices": [
+           {
+            "value": "item1",
+            "text": {
+             "ru": "Внутренний"
+            }
+           },
+           {
+            "value": "item2",
+            "text": {
+             "ru": "Наружный"
+            }
+           }
+          ]
+         },
+         {
+          "type": "radiogroup",
+          "name": "question4",
+          "visibleIf": "{question2} = 'item2'",
+          "title": "Тип баллона(CNG)",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "item1",
+            "text": "Тип 1 - Стальной цельнометаллический"
+           },
+           {
+            "value": "item2",
+            "text": "Тип 2 - Металлопластиковый"
+           },
+           {
+            "value": "item3",
+            "text": "Тип 3 - Металлопластиковый"
+           }
+          ],
+          "otherText": "Тип 4 - Композитный"
+         },
+         {
+          "type": "dropdown",
+          "name": "question18",
+          "title": {
+           "ru": "Объем баллона в литрах"
+          },
+          "isRequired": true,
+          "hasOther": true,
+          "otherPlaceHolder": {
+           "ru": "Укажите количество литров. Например: 25"
+          },
+          "choices": [
+           {
+            "value": "item1",
+            "text": {
+             "ru": "54"
+            }
+           },
+           {
+            "value": "item2",
+            "text": {
+             "ru": "68"
+            }
+           },
+           {
+            "value": "item3",
+            "text": {
+             "ru": "100"
+            }
+           }
+          ],
+          "otherText": {
+           "ru": "Другое (впишите ниже)"
+          }
+         }
+        ],
+        "visibleIf": "{question2} notempty"
+       },
+       {
+        "type": "panel",
+        "name": "panel2",
+        "elements": [
+         {
+          "type": "html",
+          "name": "question7",
+          "html": "<h2 style=\"color: #3c8dbc;\">Редуктор</h2>"
+         },
+         {
+          "type": "dropdown",
+          "name": "question8",
+          "title": "Производитель редуктора",
+          "isRequired": true,
+          "choices": [
+           "item1",
+           "item2",
+           "item3"
+          ]
+         },
+         {
+          "type": "dropdown",
+          "name": "question9",
+          "title": "Модель редуктора",
+          "isRequired": true,
+          "choices": [
+           "item1",
+           "item2",
+           "item3"
+          ]
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "panel3",
+        "elements": [
+         {
+          "type": "html",
+          "name": "question10",
+          "html": "<h2 style=\"color: #3c8dbc;\">Форсунки</h2>"
+         },
+         {
+          "type": "dropdown",
+          "name": "question11",
+          "title": "Производитель форсунок",
+          "isRequired": true,
+          "choices": [
+           "item1",
+           "item2",
+           "item3"
+          ]
+         },
+         {
+          "type": "dropdown",
+          "name": "question12",
+          "title": "Модель форсунок",
+          "isRequired": true,
+          "choices": [
+           "item1",
+           "item2",
+           "item3"
+          ]
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "panel4",
+        "elements": [
+         {
+          "type": "html",
+          "name": "question13",
+          "html": "<h2 style=\"color: #3c8dbc;\">ЭБУ (Электронный блок управления)</h2>"
+         },
+         {
+          "type": "dropdown",
+          "name": "question14",
+          "title": "Производитель ЭБУ",
+          "isRequired": true,
+          "choices": [
+           "item1",
+           "item2",
+           "item3"
+          ]
+         },
+         {
+          "type": "dropdown",
+          "name": "question15",
+          "title": "Модель ЭБУ",
+          "isRequired": true,
+          "choices": [
+           "item1",
+           "item2",
+           "item3"
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "showNavigationButtons": "none",
+    "showPrevButton": false,
+    "showTitle": false,
+    "showPageTitles": false,
+    "showCompletedPage": false,
+    "showQuestionNumbers": "off",
+    "clearInvisibleValues": "onHidden"
+   }

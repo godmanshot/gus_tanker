@@ -24,16 +24,16 @@ class SurveyJS extends Field
     public function render()
     {
         $this->script = <<<EOT
-                var defaultThemeColors = Survey
-                .StylesManager
-                .ThemeColors["default"];
-                defaultThemeColors["\$main-color"] = "#7ff07f";
-                defaultThemeColors["\$main-hover-color"] = "#6fe06f";
-                defaultThemeColors["\$text-color"] = "#4a4a4a";
-                defaultThemeColors["\$header-color"] = "#7ff07f";
+                // var defaultThemeColors = Survey
+                // .StylesManager
+                // .ThemeColors["default"];
+                // defaultThemeColors["\$main-color"] = "#7ff07f";
+                // defaultThemeColors["\$main-hover-color"] = "#6fe06f";
+                // defaultThemeColors["\$text-color"] = "#4a4a4a";
+                // defaultThemeColors["\$header-color"] = "#7ff07f";
                 
-                defaultThemeColors["\$header-background-color"] = "#ffffff";
-                defaultThemeColors["\$body-container-background-color"] = "#ffffff";
+                // defaultThemeColors["\$header-background-color"] = "#ffffff";
+                // defaultThemeColors["\$body-container-background-color"] = "#ffffff";
                 Survey.StylesManager.applyTheme();
         
                 var surveyJSON = {$this->answers};
@@ -52,8 +52,12 @@ class SurveyJS extends Field
                 });
                 
                 $('#{$this->id}_form').unbind();
-                $('#{$this->id}_form').click(function() {
-                    survey.doComplete();
+                $('#{$this->id}_form').click(function(e) {
+                    e.preventDefault();
+                    if(!survey.hasErrors()) {
+                        survey.doComplete();
+                        $(this).unbind('click').click();
+                    }
                 });
 EOT;
 

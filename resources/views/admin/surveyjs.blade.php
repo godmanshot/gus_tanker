@@ -12,3 +12,9 @@
 
 <div id="{{$id}}"></div>
 <input type="hidden" name="{{$id}}_value">
+
+<style lang="scss">
+    .sv_q_title {
+        font-size: 2rem !important;
+    }
+</style>
