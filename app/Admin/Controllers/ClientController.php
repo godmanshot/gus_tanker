@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Client;
+use App\ServiceStation;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -69,6 +70,15 @@ class ClientController extends AdminController
         $form->text('last_name', __('Фамилия'));
         $form->text('iin', __('ИИН'));
         $form->mobile('phone', __('Телефон'))->options(['mask' => '+7 999 9999999']);
+
+        /**
+         * Прикрепить нового клиента к СТО прикрипленной к текущему пользователю
+         */
+        $form->saved(function (Form $form) {
+            $station = station();
+            
+            $station->clients()->attach($form->model()->id);
+        });
 
         return $form;
     }
