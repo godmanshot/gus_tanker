@@ -6,6 +6,40 @@
       "elements": [
        {
         "type": "panel",
+        "name": "panel9",
+        "elements": [
+         {
+          "type": "html",
+          "name": "question24",
+          "html": {
+           "ru": "<h1 style=\"color: #3c8dbc;\">Установка или сервис</h1>"
+          }
+         },
+         {
+          "type": "radiogroup",
+          "name": "install_or_service",
+          "isRequired": true,
+          "titleLocation": "hidden",
+          "choices": [
+           {
+            "value": "Установка",
+            "text": {
+             "ru": "Установка"
+            }
+           },
+           {
+            "value": "Сервис",
+            "text": {
+             "ru": "Сервис"
+            }
+           }
+          ],
+          "colCount": 2
+         }
+        ]
+       },
+       {
+        "type": "panel",
         "name": "panel5",
         "elements": [
          {
@@ -18,22 +52,24 @@
          },
          {
           "type": "radiogroup",
-          "name": "question2",
+          "name": "gas_type",
+          "visibleIf": "{install_or_service} = 'Установка'",
           "title": "Тип газа",
           "isRequired": true,
           "choices": [
            {
-            "value": "item1",
+            "value": "LPG",
             "text": "LPG"
            },
            {
-            "value": "item2",
+            "value": "CNG",
             "text": "CNG"
            }
           ],
           "colCount": 2
          }
-        ]
+        ],
+        "visibleIf": "{install_or_service} = 'Установка'"
        },
        {
         "type": "panel",
@@ -46,7 +82,8 @@
          },
          {
           "type": "dropdown",
-          "name": "question1",
+          "name": "ballon_manufacturer",
+          "visibleIf": "{install_or_service} = 'Установка'",
           "title": "Производитель баллона",
           "isRequired": true,
           "choices": [
@@ -56,38 +93,38 @@
          },
          {
           "type": "radiogroup",
-          "name": "question3",
-          "visibleIf": "{question2} = 'item1'",
+          "name": "ballon_type_lpg",
+          "visibleIf": "{gas_type} = 'LPG' and {install_or_service} = 'Установка'",
           "title": "Тип баллона(LPG)",
           "isRequired": true,
           "choices": [
            {
-            "value": "item1",
+            "value": "Тороидальный",
             "text": "Тороидальный"
            },
            {
-            "value": "item2",
+            "value": "Цилиндрический",
             "text": "Цилиндрический"
            }
           ]
          },
          {
           "type": "radiogroup",
-          "name": "question17",
-          "visibleIf": "{question3} = 'item1'",
+          "name": "klapan_type_lpg",
+          "visibleIf": "{ballon_type_lpg} = 'Тороидальный' and {install_or_service} = 'Установка'",
           "title": {
-           "ru": "Тип клапана(LPG)"
+           "ru": "Тип горловины(LPG)"
           },
           "isRequired": true,
           "choices": [
            {
-            "value": "item1",
+            "value": "Внутренний",
             "text": {
              "ru": "Внутренний"
             }
            },
            {
-            "value": "item2",
+            "value": "Наружный",
             "text": {
              "ru": "Наружный"
             }
@@ -96,22 +133,22 @@
          },
          {
           "type": "radiogroup",
-          "name": "question4",
-          "visibleIf": "{question2} = 'item2'",
+          "name": "ballon_type_cng",
+          "visibleIf": "{gas_type} = 'CNG' and {install_or_service} = 'Установка'",
           "title": "Тип баллона(CNG)",
           "isRequired": true,
           "hasOther": true,
           "choices": [
            {
-            "value": "item1",
+            "value": "Тип 1",
             "text": "Тип 1 - Стальной цельнометаллический"
            },
            {
-            "value": "item2",
+            "value": "Тип 2",
             "text": "Тип 2 - Металлопластиковый"
            },
            {
-            "value": "item3",
+            "value": "Тип 3",
             "text": "Тип 3 - Металлопластиковый"
            }
           ],
@@ -119,7 +156,8 @@
          },
          {
           "type": "dropdown",
-          "name": "question18",
+          "name": "ballon_volume",
+          "visibleIf": "{install_or_service} = 'Установка'",
           "title": {
            "ru": "Объем баллона в литрах"
           },
@@ -130,19 +168,19 @@
           },
           "choices": [
            {
-            "value": "item1",
+            "value": "54",
             "text": {
              "ru": "54"
             }
            },
            {
-            "value": "item2",
+            "value": "68",
             "text": {
              "ru": "68"
             }
            },
            {
-            "value": "item3",
+            "value": "100",
             "text": {
              "ru": "100"
             }
@@ -153,7 +191,7 @@
           }
          }
         ],
-        "visibleIf": "{question2} notempty"
+        "visibleIf": "{install_or_service} = 'Установка'"
        },
        {
         "type": "panel",
@@ -166,7 +204,8 @@
          },
          {
           "type": "dropdown",
-          "name": "question8",
+          "name": "gearbox_manufacturer",
+          "visibleIf": "{install_or_service} = 'Установка'",
           "title": "Производитель редуктора",
           "isRequired": true,
           "choices": [
@@ -177,7 +216,8 @@
          },
          {
           "type": "dropdown",
-          "name": "question9",
+          "name": "gearbox_model",
+          "visibleIf": "{install_or_service} = 'Установка'",
           "title": "Модель редуктора",
           "isRequired": true,
           "choices": [
@@ -186,7 +226,8 @@
            "item3"
           ]
          }
-        ]
+        ],
+        "visibleIf": "{install_or_service} = 'Установка'"
        },
        {
         "type": "panel",
@@ -199,7 +240,8 @@
          },
          {
           "type": "dropdown",
-          "name": "question11",
+          "name": "nozzles_manufacturer",
+          "visibleIf": "{install_or_service} = 'Установка'",
           "title": "Производитель форсунок",
           "isRequired": true,
           "choices": [
@@ -210,7 +252,8 @@
          },
          {
           "type": "dropdown",
-          "name": "question12",
+          "name": "nozzles_model",
+          "visibleIf": "{install_or_service} = 'Установка'",
           "title": "Модель форсунок",
           "isRequired": true,
           "choices": [
@@ -219,7 +262,8 @@
            "item3"
           ]
          }
-        ]
+        ],
+        "visibleIf": "{install_or_service} = 'Установка'"
        },
        {
         "type": "panel",
@@ -232,7 +276,8 @@
          },
          {
           "type": "dropdown",
-          "name": "question14",
+          "name": "ecu_manufacturer",
+          "visibleIf": "{install_or_service} = 'Установка'",
           "title": "Производитель ЭБУ",
           "isRequired": true,
           "choices": [
@@ -243,7 +288,8 @@
          },
          {
           "type": "dropdown",
-          "name": "question15",
+          "name": "ecu_model",
+          "visibleIf": "{install_or_service} = 'Установка'",
           "title": "Модель ЭБУ",
           "isRequired": true,
           "choices": [
@@ -252,7 +298,173 @@
            "item3"
           ]
          }
-        ]
+        ],
+        "visibleIf": "{install_or_service} = 'Установка'"
+       },
+       {
+        "type": "panel",
+        "name": "panel6",
+        "elements": [
+         {
+          "type": "html",
+          "name": "question5",
+          "html": {
+           "ru": "<h2 style=\"color: #3c8dbc;\">Ремонт</h2>"
+          }
+         },
+         {
+          "type": "checkbox",
+          "name": "repair",
+          "visibleIf": "{install_or_service} = 'Сервис'",
+          "titleLocation": "hidden",
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "Редуктор",
+            "text": {
+             "ru": "Редуктор"
+            }
+           },
+           {
+            "value": "Форсунки",
+            "text": {
+             "ru": "Форсунки"
+            }
+           },
+           {
+            "value": "ЭБУ",
+            "text": {
+             "ru": "ЭБУ"
+            }
+           },
+           {
+            "value": "Мультиклапан",
+            "text": {
+             "ru": "Мультиклапан"
+            }
+           },
+           {
+            "value": "Вентель",
+            "text": {
+             "ru": "Вентель"
+            }
+           }
+          ]
+         }
+        ],
+        "visibleIf": "{install_or_service} = 'Сервис'"
+       },
+       {
+        "type": "panel",
+        "name": "panel7",
+        "elements": [
+         {
+          "type": "html",
+          "name": "question21",
+          "html": {
+           "ru": "<h2 style=\"color: #3c8dbc;\">Замена</h2>"
+          }
+         },
+         {
+          "type": "checkbox",
+          "name": "replacement",
+          "visibleIf": "{install_or_service} = 'Сервис'",
+          "titleLocation": "hidden",
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "Шланги",
+            "text": {
+             "ru": "Шланги"
+            }
+           },
+           {
+            "value": "Трубка",
+            "text": {
+             "ru": "Трубка"
+            }
+           },
+           {
+            "value": "Кнопка переключателя",
+            "text": {
+             "ru": "Кнопка переключателя"
+            }
+           },
+           {
+            "value": "Рем. комплект редуктора",
+            "text": {
+             "ru": "Рем. комплект редуктора"
+            }
+           },
+           {
+            "value": "Рем. комплект форсунок",
+            "text": {
+             "ru": "Рем. комплект форсунок"
+            }
+           },
+           {
+            "value": "Редуктора",
+            "text": {
+             "ru": "Редуктора"
+            }
+           },
+           {
+            "value": "Форсунка 1 шт.",
+            "text": {
+             "ru": "Форсунка 1 шт."
+            }
+           },
+           {
+            "value": "Мультиклапан",
+            "text": {
+             "ru": "Мультиклапан"
+            }
+           },
+           {
+            "value": "Вентель",
+            "text": {
+             "ru": "Вентель"
+            }
+           },
+           {
+            "value": "ЭБУ",
+            "text": {
+             "ru": "ЭБУ"
+            }
+           }
+          ]
+         }
+        ],
+        "visibleIf": "{install_or_service} = 'Сервис'"
+       },
+       {
+        "type": "panel",
+        "name": "panel8",
+        "elements": [
+         {
+          "type": "html",
+          "name": "question22",
+          "html": {
+           "ru": "<h2 style=\"color: #3c8dbc;\">Остальное</h2>"
+          }
+         },
+         {
+          "type": "checkbox",
+          "name": "other",
+          "visibleIf": "{install_or_service} = 'Сервис'",
+          "titleLocation": "hidden",
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "Услуга прочистка системы",
+            "text": {
+             "ru": "Услуга прочистка системы"
+            }
+           }
+          ]
+         }
+        ],
+        "visibleIf": "{install_or_service} = 'Сервис'"
        }
       ]
      }

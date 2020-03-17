@@ -33,6 +33,13 @@ class WorkForm extends StepForm
     public function form()
     {
         $this->surveyjs('work')->answers($this->answers())->fillable_data($this->data());
+
+        $this->divider('Цена и примечание');
+
+        $this->number('price', __('Цена'))->placeholder(__('Цена'));
+        $this->number('prepaid', __('Аванс'))->placeholder(__('Аванс'));
+        $this->textarea('additional_info', __('Примечание'))->rows(5);
+
     }
 
     /**
@@ -43,9 +50,9 @@ class WorkForm extends StepForm
     public function data()
     {
         return [
-            'name'       => 'John Doe',
-            'email'      => 'John.Doe@gmail.com',
-            'created_at' => now(),
+            // 'name'       => 'John Doe',
+            // 'email'      => 'John.Doe@gmail.com',
+            // 'created_at' => now(),
         ];
     }
 

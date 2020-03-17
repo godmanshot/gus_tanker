@@ -40,6 +40,7 @@ class SurveyJS extends Field
                 
                 function sendDataToServer(survey) {
                     $("[name='{$this->id}_value']").val(JSON.stringify(survey.data));
+                    console.log(survey.data);
                 }
                 
                 var survey = new Survey.Model(surveyJSON);
@@ -56,7 +57,7 @@ class SurveyJS extends Field
                     e.preventDefault();
                     if(!survey.hasErrors()) {
                         survey.doComplete();
-                        $(this).unbind('click').click();
+                        // $(this).unbind('click').click();
                     }
                 });
 EOT;
