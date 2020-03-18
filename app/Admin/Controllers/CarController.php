@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Car;
+use App\ClientCar;
 use App\Client;
 use App\CarModel;
 use Encore\Admin\Form;
@@ -27,12 +27,18 @@ class CarController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Car());
+        $grid = new Grid(new ClientCar());
 
         $grid->column('id', __('#'));
-        $grid->column('manufacturer_id', __('Производитель'));
-        $grid->column('model_id', __('Модель'));
-        $grid->column('client_id', __('Клиент'));
+
+        $grid->column('model_name', __('Модель'))->display(function () {
+            return $this->model->info;
+        });
+
+        $grid->column('client_info', __('Клиент'))->display(function () {
+            return $this->client->info;
+        });
+
         $grid->column('year_manufacture', __('Год выпуска'));
         $grid->column('cylinders', __('Кол. цилиндров'));
         $grid->column('vin', __('VIN'));
@@ -53,10 +59,9 @@ class CarController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Car::findOrFail($id));
+        $show = new Show(ClientCar::findOrFail($id));
 
         $show->field('id', __('#'));
-        $show->field('manufacturer_id', __('Производитель'));
         $show->field('model_id', __('Модель'));
         $show->field('client_id', __('Клиент'));
         $show->field('year_manufacture', __('Год выпуска'));
@@ -78,7 +83,7 @@ class CarController extends AdminController
      */
     public function form()
     {
-        $form = new Form(new Car());
+        $form = new Form(new ClientCar());
 
         $clients = Client::all()->keyBy('id');
 

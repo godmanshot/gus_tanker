@@ -12,7 +12,7 @@ class ClientCarSeed extends Seeder
      */
     public function run()
     {
-        DB::table('cars')->insert([
+        DB::table('client_cars')->insert([
             'id' => 1,
             'model_id' => 1,
             'client_id' => 1,

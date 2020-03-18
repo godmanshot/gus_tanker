@@ -2,6 +2,7 @@
 
 namespace App\Admin\Forms\Work;
 
+use App\Work;
 use Illuminate\Http\Request;
 use Encore\Admin\Widgets\Form;
 use Encore\Admin\Widgets\StepForm;
@@ -24,8 +25,18 @@ class WorkForm extends StepForm
      */
     public function handle(Request $request)
     {
-        dd($this->all());
-        return $this->next($request->all());
+        $data = $this->all();
+        
+        $work = Work::create([
+            'client_id' => $data['client']['client']->id,
+            'car_id' => $data['car']['car']->id,
+            'price' => $data['work']['price'],
+            'prepaid' => $data['work']['prepaid'],
+            'additional_information' => $data['work']['additional_information'],
+            'work_json' => $data['work']['work_value'],
+        ]);
+
+        dd($work);
     }
 
     /**
@@ -38,8 +49,8 @@ class WorkForm extends StepForm
         $this->divider('Цена и примечание');
 
         $this->number('price', __('Цена'))->placeholder(__('Цена'))->rules('required');
-        $this->number('prepaid', __('Аванс'))->placeholder(__('Аванс'))->rules('required');
-        $this->textarea('additional_info', __('Примечание'))->rows(5);
+        $this->number('prepaid', __('Аванс'))->placeholder(__('Аванс'))->rules('required')->default(0);
+        $this->textarea('additional_information', __('Примечание'))->rows(5);
 
     }
 

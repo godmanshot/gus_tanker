@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Car extends Model
+class ClientCar extends Model
 {
     public $fillable = [
         'model_id',
@@ -21,6 +21,11 @@ class Car extends Model
     public function model()
     {
         return $this->hasOne('App\CarModel', 'id', 'model_id');
+    }
+    
+    public function client()
+    {
+        return $this->hasOne('App\Client', 'id', 'client_id');
     }
 
     public function getInfoAttribute()

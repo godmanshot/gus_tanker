@@ -6,6 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Work extends Model
 {
+    public $fillable = [
+        'client_id',
+        'car_id',
+        'price',
+        'prepaid',
+        'additional_information',
+        'work_json',
+    ];
+
+    public function model()
+    {
+        return $this->hasOne('App\CarModel');
+    }
+    
+    public function client()
+    {
+        return $this->hasOne('App\Client');
+    }
+
     public function station()
     {
         return $this->belongsToMany('App\ServiceStation', 'service_station_works');

@@ -27,6 +27,11 @@ class WorkController extends AdminController
         $grid = new Grid(new Work());
 
         $grid->column('id', __('Id'));
+        $grid->column('client_id', __('Client id'));
+        $grid->column('car_id', __('Car id'));
+        $grid->column('price', __('Price'));
+        $grid->column('prepaid', __('Prepaid'));
+        $grid->column('additional_information', __('Additional information'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -44,6 +49,11 @@ class WorkController extends AdminController
         $show = new Show(Work::findOrFail($id));
 
         $show->field('id', __('Id'));
+        $show->field('client_id', __('Client id'));
+        $show->field('car_id', __('Car id'));
+        $show->field('price', __('Price'));
+        $show->field('prepaid', __('Prepaid'));
+        $show->field('additional_information', __('Additional information'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -59,6 +69,13 @@ class WorkController extends AdminController
     {
         // $form = new Form(new Work());
 
+        // $form->number('client_id', __('Client id'));
+        // $form->number('car_id', __('Car id'));
+        // $form->number('price', __('Price'));
+        // $form->number('prepaid', __('Prepaid'));
+        // $form->textarea('additional_information', __('Additional information'));
+
+        // return $form;
         $steps = [
             'client' => \App\Admin\Forms\Work\ClientForm::class,
             'car' => \App\Admin\Forms\Work\CarForm::class,

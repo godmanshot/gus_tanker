@@ -1,6 +1,6 @@
 <?php
 
-use App\Car;
+use App\ClientCar;
 use App\Client;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
@@ -17,7 +17,7 @@ Route::group([
     $router->resource('clients', ClientController::class);
     $router->resource('car-manufacturers', CarManufacturerController::class);
     $router->resource('car-models', CarModelController::class);
-    $router->resource('cars', CarController::class);
+    $router->resource('client-cars', CarController::class);
     $router->resource('works', WorkController::class);
     
     Route::get('/api/clients', function(Request $request) {
@@ -41,10 +41,10 @@ Route::group([
         return $clients;
     });
     
-    Route::get('/api/cars/by-client', function(Request $request) {
+    Route::get('/api/client-cars/by-client', function(Request $request) {
         $q = $request->get('q');
         
-        $clients = Car::where('client_id', $q)->get();
+        $clients = ClientCar::where('client_id', $q)->get();
 
         $clients->transform(function($item, $key)
         {

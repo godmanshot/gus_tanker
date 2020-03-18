@@ -2,7 +2,7 @@
 
 namespace App\Admin\Forms\Work;
 
-use App\Car;
+use App\ClientCar;
 use App\Client;
 use Illuminate\Http\Request;
 use Encore\Admin\Widgets\Form;
@@ -17,9 +17,9 @@ class CarForm extends StepForm
     public function handle(Request $request)
     {
         if($request->filled('model_id')) {
-            $model = Car::create($request->all());
+            $model = ClientCar::create($request->all());
         } elseif($request->filled('car_id')) {
-            $model = Car::find($request->car_id);
+            $model = ClientCar::find($request->car_id);
         }
 
         return $this->next(['car' => $model]);
@@ -34,7 +34,7 @@ class CarForm extends StepForm
 
         $clients = Client::all()->keyBy('id')->map(function($m) { return $m->info;});
 
-        $this->select('client_id', 'Клиент')->options($clients)->load('car_id', url('/admin/api/cars/by-client'));
+        $this->select('client_id', 'Клиент')->options($clients)->load('car_id', url('/admin/api/client-cars/by-client'));
 
         if(isset($this->data()['client_id'])) {
             $client = Client::find($this->data()['client_id']);

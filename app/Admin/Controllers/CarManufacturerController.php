@@ -27,8 +27,8 @@ class CarManufacturerController extends AdminController
         $grid = new Grid(new CarManufacturer());
 
         $grid->column('id', __('#'));
-        $grid->column('image', __('Лого'))->image('', 100, 100);
         $grid->column('name', __('Название'));
+        $grid->column('image', __('Лого'))->image('', 100, 100);
 
         return $grid;
     }

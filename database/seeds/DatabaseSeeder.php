@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CarModelSeed::class);
         $this->call(ClientCarSeed::class);
         $this->call(ServiceStationClientSeed::class);
-        
+        $this->call(MenuSeed::class);
     }
 }

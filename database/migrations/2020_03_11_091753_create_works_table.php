@@ -15,7 +15,20 @@ class CreateWorksTable extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->integer('type_work');
+            
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients');
+            
+            $table->unsignedBigInteger('car_id');
+            $table->foreign('car_id')->references('id')->on('client_cars');
+
+            $table->integer('price');
+            $table->integer('prepaid')->nullable();
+            $table->text('additional_information')->nullable();
+
+            $table->text('work_json')->nullable();
+
+            // $table->integer('type_work');
             $table->timestamps();
         });
     }

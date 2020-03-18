@@ -25,7 +25,7 @@ class Client extends Model
 
     public function cars()
     {
-        return $this->hasMany('App\Car');
+        return $this->hasMany('App\ClientCar');
     }
 
     public function scopeByStation($query, ServiceStation $station)

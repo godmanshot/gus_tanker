@@ -13,7 +13,7 @@ class CreateCarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cars', function (Blueprint $table) {
+        Schema::create('client_cars', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('model_id');
@@ -24,11 +24,11 @@ class CreateCarsTable extends Migration
 
             $table->integer('year_manufacture');
             $table->integer('cylinders');
-            $table->string('vin');
-            $table->string('government_number');
-            $table->string('body_number');
-            $table->string('chassis');
-            $table->string('data_sheet');
+            $table->string('vin')->nullable();
+            $table->string('government_number')->nullable();
+            $table->string('body_number')->nullable();
+            $table->string('chassis')->nullable();
+            $table->string('data_sheet')->nullable();
 
             $table->timestamps();
         });
@@ -41,6 +41,6 @@ class CreateCarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cars');
+        Schema::dropIfExists('client_cars');
     }
 }
