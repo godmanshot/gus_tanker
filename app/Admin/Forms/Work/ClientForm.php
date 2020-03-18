@@ -25,7 +25,13 @@ class ClientForm extends StepForm
      */
     public function handle(Request $request)
     {
-        return $this->next($request->all());
+        if($request->filled('first_name')) {
+            $model = Client::create($request->all());
+        } elseif($request->filled('client_id')) {
+            $model = Client::currentStation()->find($request->client_id);
+        }
+
+        return $this->next(['client' => $model]);
     }
 
     /**
@@ -42,13 +48,14 @@ class ClientForm extends StepForm
             if ($client) {
                 return [$client->id => $client->info];
             }
-        })->ajax(url('/admin/api/clients'));
+        })->config('minimumInputLength', false)->ajax(url('/admin/api/clients'));
 
         $this->divider('Новый клиент');
 
         $fields = $this->clientFormField();
 
         foreach($fields as $field) {
+            $field->rules("required_without_all:client_id", ['required_without_all' => "Заполните все данные или выберите клиента из базы"]);
             $this->pushField($field);
         }
 
@@ -59,5 +66,10 @@ class ClientForm extends StepForm
         $form = (new \App\Admin\Controllers\ClientController)->form();
 
         return $form->builder()->fields();
+    }
+
+    public function data()
+    {
+        return [];
     }
 }

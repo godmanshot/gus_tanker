@@ -11,4 +11,11 @@ class CarModel extends Model
     {
         return $this->hasOne('App\CarManufacturer', 'id', 'manufacturer_id');
     }
+
+    public function getInfoAttribute()
+    {
+        $manufacturer = $this->manufacturer;
+
+        return $manufacturer->name.' '.$this->name;
+    }
 }

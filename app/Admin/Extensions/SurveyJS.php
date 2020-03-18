@@ -55,9 +55,9 @@ class SurveyJS extends Field
                 $('#{$this->id}_form').unbind();
                 $('#{$this->id}_form').click(function(e) {
                     e.preventDefault();
-                    if(!survey.hasErrors()) {
+                    if(!survey.hasErrors() && $('form[pjax-container]')[0].reportValidity()) {
                         survey.doComplete();
-                        // $(this).unbind('click').click();
+                        $(this).unbind('click').click();
                     }
                 });
 EOT;

@@ -15,5 +15,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ServiceStationSeed::class);
         $this->call(ServiceStationUserSeeder::class);
+        $this->call(ClientSeed::class);
+        $this->call(CarManufacturerSeed::class);
+        $this->call(CarModelSeed::class);
+        $this->call(ClientCarSeed::class);
+        $this->call(ServiceStationClientSeed::class);
+        
     }
 }

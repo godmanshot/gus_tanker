@@ -1,5 +1,6 @@
 <?php
 
+use App\Car;
 use App\Client;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
@@ -39,6 +40,19 @@ Route::group([
 
         return $clients;
     });
+    
+    Route::get('/api/cars/by-client', function(Request $request) {
+        $q = $request->get('q');
+        
+        $clients = Car::where('client_id', $q)->get();
 
+        $clients->transform(function($item, $key)
+        {
+            return ['id' => $item->id, 'text' => $item->info];
+        });
+
+        return $clients;
+    });
+    
 });
 

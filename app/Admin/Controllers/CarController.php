@@ -82,13 +82,16 @@ class CarController extends AdminController
 
         $clients = Client::all()->keyBy('id');
 
-        $clients = $clients->map(function($m) { return $m->last_name.' '.$m->first_name.' '.$m->phone;});
+        $clients = $clients->map(function($m) { return $m->info;});
 
         $form->select('client_id', 'Клиент')
             ->options($clients);
 
-        $form->select('model_id', 'Модель машины')
-            ->options(CarModel::all()->pluck('name', 'id'));
+        $car_models = CarModel::all()->keyBy('id');
+
+        $car_models = $car_models->map(function($m) { return $m->info;});
+
+        $form->select('model_id', 'Модель машины')->options($car_models);
 
         $form->date('year_manufacture', __('Год выпуска'))->placeholder(__('Год выпуска'))->icon(false)->format('YYYY')->width('200px');
         $form->radio('cylinders', __('Кол. цилиндров'))->options(['4' => '4 цилиндров', '8'=> '8 цилиндров'])->default('4');

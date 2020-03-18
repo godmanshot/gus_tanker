@@ -24,6 +24,7 @@ class WorkForm extends StepForm
      */
     public function handle(Request $request)
     {
+        dd($this->all());
         return $this->next($request->all());
     }
 
@@ -36,8 +37,8 @@ class WorkForm extends StepForm
 
         $this->divider('Цена и примечание');
 
-        $this->number('price', __('Цена'))->placeholder(__('Цена'));
-        $this->number('prepaid', __('Аванс'))->placeholder(__('Аванс'));
+        $this->number('price', __('Цена'))->placeholder(__('Цена'))->rules('required');
+        $this->number('prepaid', __('Аванс'))->placeholder(__('Аванс'))->rules('required');
         $this->textarea('additional_info', __('Примечание'))->rows(5);
 
     }

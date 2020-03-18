@@ -23,6 +23,11 @@ class Client extends Model
         return $this->belongsToMany('App\ServiceStation', 'service_station_clients');
     }
 
+    public function cars()
+    {
+        return $this->hasMany('App\Car');
+    }
+
     public function scopeByStation($query, ServiceStation $station)
     {
         return $query->whereHas('station', function ($query) use ($station) {
