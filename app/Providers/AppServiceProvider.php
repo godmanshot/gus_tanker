@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Client;
 use App\ServiceStation;
 use Encore\Admin\Facades\Admin;
+use App\Observers\ClientObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -44,6 +46,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Client::observe(ClientObserver::class);
     }
 }

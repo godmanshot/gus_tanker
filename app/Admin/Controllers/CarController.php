@@ -76,7 +76,7 @@ class CarController extends AdminController
      *
      * @return Form
      */
-    protected function form()
+    public function form()
     {
         $form = new Form(new Car());
 

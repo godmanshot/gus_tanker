@@ -71,15 +71,6 @@ class ClientController extends AdminController
         $form->text('iin', __('ИИН'));
         $form->mobile('phone', __('Телефон'))->options(['mask' => '+7 999 9999999']);
 
-        /**
-         * Прикрепить нового клиента к СТО прикрипленной к текущему пользователю
-         */
-        $form->saved(function (Form $form) {
-            $station = station();
-            
-            $station->clients()->attach($form->model()->id);
-        });
-
         return $form;
     }
 }

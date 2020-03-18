@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+    public $fillable = [
+        'first_name',
+        'last_name',
+        'iin',
+        'phone'
+    ];
 
     public function getInfoAttribute()
     {
