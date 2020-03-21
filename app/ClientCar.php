@@ -34,4 +34,23 @@ class ClientCar extends Model
 
         return $model_name->info.' (VIN: '.$this->vin.')';
     }
+
+    public function getfullNameAttribute() {
+        $model_name = $this->model;
+
+        return $model_name->info;
+    }
+
+    public function getGovNumberFullAttribute() {
+        return $this->government_number;
+    }
+
+    public function getVinFullAttribute() {
+        return $this->vin;
+    }
+
+    public function getAutoLengthFullAttribute() {
+        return $this->auto_length.' тыс. км.';
+    }
+
 }

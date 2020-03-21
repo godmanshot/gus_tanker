@@ -1,3 +1,32 @@
 composer install
 php artisan admin:install
 php artisan migrate:fresh --seed
+
+ЭБУ
+
+STAG QNEXT PLUS
+STAG QBOX PLUS
+STAG QMAX PLUS
+STAG QMAX BASIC
+STAG QBOX BASIC
+STAG 400 DPI
+STAG DIESEL
+STAG GoFast
+
+Форсунки
+
+STAG AC W01
+AC W01 BFC
+AC W02
+STAG AC W02 BFC
+AC W03
+STAG AC W031 BFC
+
+Редукторы LPG
+STAG R02
+STAG R02 TWIN
+STAG R01
+STAG R02 EL
+
+Редукторы CNG
+STAG R14

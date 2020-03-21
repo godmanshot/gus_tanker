@@ -21,6 +21,12 @@ class CreateServiceStationsTable extends Migration
             $table->string("address");
             $table->string("currency");
             $table->string("timezone");
+            $table->integer("warranty_exp_month");
+            $table->integer("warranty_exp_lenght");
+            $table->integer("to_period");
+            $table->string("city_name");
+            $table->string("response_person");
+            $table->longText("warranty_text");
             $table->timestamps();
         });
     }

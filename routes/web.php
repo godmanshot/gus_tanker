@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/test', function() {
+    $work = \App\Work::find(1);
+
+    $writer = new \App\Work\PdfWorkWriter();
+    // $writer = new \App\Work\DocxWorkWriter();
+
+    // $writer = new \App\Work\HtmlWorkWriter();
+
+    return $work->write($writer);
+});

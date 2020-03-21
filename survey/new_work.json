@@ -157,7 +157,7 @@
          {
           "type": "dropdown",
           "name": "ballon_volume",
-          "visibleIf": "{install_or_service} = 'Установка'",
+          "visibleIf": "{install_or_service} = 'Установка' and {ballon_type_lpg} notempty",
           "title": {
            "ru": "Объем баллона в литрах"
           },
@@ -189,6 +189,44 @@
           "otherText": {
            "ru": "Другое (впишите ниже)"
           }
+         },
+         {
+          "type": "text",
+          "name": "balloon_id",
+          "visibleIf": "{ballon_type_lpg} notempty",
+          "title": {
+           "ru": "Номер баллона"
+          },
+          "isRequired": true
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "cng_balloons",
+          "visibleIf": "{ballon_type_cng} notempty",
+          "title": {
+           "ru": "Баллоны"
+          },
+          "columns": [
+           {
+            "name": "Объем",
+            "cellType": "dropdown",
+            "isRequired": true,
+            "hasOther": true
+           },
+           {
+            "name": "Номер",
+            "cellType": "text",
+            "isRequired": true
+           }
+          ],
+          "choices": [
+           "54",
+           "68",
+           "100"
+          ],
+          "cellType": "text",
+          "rowCount": 1,
+          "minRowCount": 1
          }
         ],
         "visibleIf": "{install_or_service} = 'Установка'"

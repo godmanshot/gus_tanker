@@ -27,11 +27,11 @@ class Client extends Model
     {
         return $this->hasMany('App\ClientCar');
     }
-
-    public function scopeByStation($query, ServiceStation $station)
+    
+    protected static function booted()
     {
-        return $query->whereHas('station', function ($query) use ($station) {
-            $query->where('service_stations.id', $station->id);
+        static::addGlobalScope('currentStation', function ($builder) {
+            $builder->currentStation();
         });
     }
 
@@ -39,13 +39,6 @@ class Client extends Model
     {
         return $query->whereHas('station', function ($query) {
             $query->where('service_stations.id', station()->id);
-        });
-    }
-    
-    protected static function booted()
-    {
-        static::addGlobalScope('currentStation', function ($builder) {
-            $builder->currentStation();
         });
     }
 }

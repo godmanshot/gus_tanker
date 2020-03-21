@@ -29,7 +29,8 @@ class CreateCarsTable extends Migration
             $table->string('body_number')->nullable();
             $table->string('chassis')->nullable();
             $table->string('data_sheet')->nullable();
-
+            $table->integer('auto_length')->nullable();
+            
             $table->timestamps();
         });
     }
