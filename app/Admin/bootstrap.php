@@ -21,3 +21,5 @@
 Encore\Admin\Form::forget(['map', 'editor']);
 
 \Encore\Admin\Form::extend('surveyjs', \App\Admin\Extensions\SurveyJS::class);
+
+\Encore\Admin\Show::extend('work', \App\Admin\Extensions\WorkShowField::class);

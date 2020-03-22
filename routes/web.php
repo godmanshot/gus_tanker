@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function() {
-    $work = \App\Work::find(1);
+    $work = \App\Work::find(6);
 
     $writer = new \App\Work\PdfWorkWriter();
     // $writer = new \App\Work\DocxWorkWriter();

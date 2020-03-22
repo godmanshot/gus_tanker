@@ -26,14 +26,37 @@ class WorkController extends AdminController
     {
         $grid = new Grid(new Work());
 
-        $grid->column('id', __('Id'));
-        $grid->column('client_id', __('Client id'));
-        $grid->column('car_id', __('Car id'));
-        $grid->column('price', __('Price'));
-        $grid->column('prepaid', __('Prepaid'));
-        $grid->column('additional_information', __('Additional information'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $actions->disableEdit();
+        });
+        
+        $grid->column('work', __('Работа'))->display(function ($model) {
+            return $this->items()['install_or_service'];
+        })->expand(function ($model) {
+            $work = $model;
+
+            return view('admin.fields.show.work', compact('work'));
+        });
+
+        $grid->column('client', __('Клиент'))->display(function ($client) {
+            return $this->client->info;
+        });
+
+        $grid->column('car', __('Машина'))->display(function ($car) {
+            return $this->car->info;
+        });
+
+        $grid->column('price', __('Цена'))->display(function ($price) {
+            return $price.' тг.';
+        });
+
+        $grid->column('prepaid', __('Аванс'))->display(function ($price) {
+            return $price.' тг.';
+        });
+
+        $grid->column('created_at', __('Создано'))->display(function ($price) {
+            return $this->created_at->format("d.m.Y");
+        });
 
         return $grid;
     }
@@ -46,16 +69,33 @@ class WorkController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Work::findOrFail($id));
+        $work = Work::findOrFail($id);
 
-        $show->field('id', __('Id'));
-        $show->field('client_id', __('Client id'));
-        $show->field('car_id', __('Car id'));
-        $show->field('price', __('Price'));
-        $show->field('prepaid', __('Prepaid'));
-        $show->field('additional_information', __('Additional information'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $show = new Show($work);
+
+        $show->panel()
+        ->tools(function ($tools) {
+            $tools->disableEdit();
+        });
+
+        $show->client(__('Клиент'))->as(function ($client) {
+            return $client->info;
+        })->link(route('clients.show', $work->client_id));
+
+        $show->car(__('Машина'))->as(function ($car) {
+            return $car->info;
+        })->link(route('client-cars.show', $work->car_id));
+
+        $show->divider();
+
+        $show->work_json(__('Работа'))->work();
+
+        $show->divider();
+
+        $show->field('price', __('Цена'))->color('#dddddd');
+        $show->field('prepaid', __('Аванс'));
+        $show->field('additional_information', __('Примечание'));
+        $show->field('created_at', __('Создано'));
 
         return $show;
     }

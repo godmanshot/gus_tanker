@@ -24,12 +24,12 @@ class Work extends Model
     
     public function client()
     {
-        return $this->hasOne('App\Client');
+        return $this->belongsTo('App\Client');
     }
     
     public function car()
     {
-        return $this->hasOne('App\ClientCar', 'id', 'car_id');
+        return $this->belongsTo('App\ClientCar');
     }
 
     public function station()
@@ -62,6 +62,48 @@ class Work extends Model
     public function items()
     {
         return json_decode($this->work_json, true);
+    }
+    
+    public function isInstall() {
+        $items = $this->items();
+
+        return $items['install_or_service'] == 'Установка';
+    }
+    
+    public function isService() {
+        $items = $this->items();
+
+        return $items['install_or_service'] == 'Сервис';
+    }
+    
+    public function gas_type() {
+        $items = $this->items();
+
+        return $items['gas_type'];
+    }
+    
+    public function isLpg() {
+        $items = $this->items();
+
+        return $items['gas_type'] == 'LPG';
+    }
+    
+    public function ballon_manufacturer() {
+        $items = $this->items();
+
+        return $items['ballon_manufacturer'];
+    }
+    
+    public function ballon_type_cng() {
+        $items = $this->items();
+
+        return $items['ballon_type_cng'];
+    }
+    
+    public function ballon_type_lpg() {
+        $items = $this->items();
+
+        return $items['ballon_type_lpg'];
     }
     
     public function balloons() {

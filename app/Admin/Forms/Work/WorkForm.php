@@ -36,7 +36,7 @@ class WorkForm extends StepForm
             'work_json' => $data['work']['work_value'],
         ]);
 
-        dd($work);
+        return redirect()->route('works.show', $work);
     }
 
     /**
