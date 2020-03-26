@@ -11,56 +11,23 @@ class MenuSeed extends Seeder
      */
     public function run()
     {
+        
         \Encore\Admin\Auth\Database\Menu::insert([
-            [
-                'parent_id' => 0,
-                'order'     => 8,
-                'title'     => 'Работа',
-                'icon'      => 'fa-align-justify',
-                'uri'       => '/works',
-            ],
-            [
-                'parent_id' => 0,
-                'order'     => 9,
-                'title'     => 'Клиенты',
-                'icon'      => 'fa-align-justify',
-                'uri'       => '/clients',
-            ],
-            [
-                'parent_id' => 0,
-                'order'     => 10,
-                'title'     => 'Производители',
-                'icon'      => 'fa-align-justify',
-                'uri'       => '/car-manufacturers',
-            ],
-            [
-                'parent_id' => 0,
-                'order'     => 11,
-                'title'     => 'Модели машин',
-                'icon'      => 'fa-align-justify',
-                'uri'       => '/car-models',
-            ],
-            [
-                'parent_id' => 0,
-                'order'     => 12,
-                'title'     => 'Машины клиентов',
-                'icon'      => 'fa-align-justify',
-                'uri'       => '/client-cars',
-            ],
-            [
-                'parent_id' => 0,
-                'order'     => 13,
-                'title'     => 'СТО',
-                'icon'      => 'fa-align-justify',
-                'uri'       => '/service-stations',
-            ],
-            [
-                'parent_id' => 0,
-                'order'     => 14,
-                'title'     => 'Тех. обслуживание',
-                'icon'      => 'fa-align-justify',
-                'uri'       => '/tech-inspections',
-            ],
+            ['id' => 8, 'parent_id' => 0, 'order' => 3, 'title' => 'Работа', 'icon' => 'fa-wrench', 'uri' => '/works'],
+            ['id' => 9, 'parent_id' => 16, 'order' => 4, 'title' => 'Клиенты', 'icon' => 'fa-user', 'uri' => '/clients'],
+            ['id' => 10, 'parent_id' => 15, 'order' => 7, 'title' => 'Производители', 'icon' => 'fa-user-plus', 'uri' => '/car-manufacturers'],
+            ['id' => 11, 'parent_id' => 15, 'order' => 8, 'title' => 'Модели', 'icon' => 'fa-car', 'uri' => '/car-models'],
+            ['id' => 12, 'parent_id' => 16, 'order' => 5, 'title' => 'Машины клиентов', 'icon' => 'fa-car', 'uri' => '/client-cars'],
+            ['id' => 13, 'parent_id' => 0, 'order' => 9, 'title' => 'Настройка СТО', 'icon' => 'fa-building-o', 'uri' => '/service-stations'],
+            ['id' => 14, 'parent_id' => 0, 'order' => 4, 'title' => 'Тех. обслуживание', 'icon' => 'fa-eye', 'uri' => '/tech-inspections'],
+            ['id' => 15, 'parent_id' => 0, 'order' => 6, 'title' => 'Справочники машин', 'icon' => 'fa-book', 'uri' => NULL],
+            ['id' => 16, 'parent_id' => 0, 'order' => 5, 'title' => 'Клиенты', 'icon' => 'fa-users', 'uri' => NULL],
         ]);
+
+        \Encore\Admin\Auth\Database\Menu::find(2)->delete();
+        $dashboard = \Encore\Admin\Auth\Database\Menu::find(1);
+        $dashboard->title = __('Главная');
+        $dashboard->save();
+
     }
 }

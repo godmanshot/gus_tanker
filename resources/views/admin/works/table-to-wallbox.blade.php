@@ -32,7 +32,7 @@
                 <div class="caption">
                     <h3 style="margin: 0;">{{$row->model()['government_number']}}</h3>
                     <p>{{$row->model()['car']}}</p>
-                    <p style="margin-bottom: 0px;">Создано: <b>{{$row->model()['created_at']}}</b></p>
+                    <!-- <p style="margin-bottom: 0px;">Создано: <b>{{$row->model()['created_at']}}</b></p> -->
                     <!-- <p style="margin-bottom: 0px;">Цена: <b>{{$row->model()['price']}}</b></p>
                     <p style="margin-bottom: 5px;">Аванс: <b>{{$row->model()['prepaid']}}</b></p> -->
                     <div class="content_work" style="height: 200px; overflow: auto;margin-bottom: 10px;">

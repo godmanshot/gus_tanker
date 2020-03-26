@@ -25,11 +25,11 @@ class Wallbox extends Action
     {
         if($this->isList()) {
             $html = <<<HTML
-                <a class="btn btn-sm btn-warning import-post">Карточками</a>
+                <a class="btn btn-sm btn-light import-post">Карточками</a>
 HTML;
         } else {
             $html = <<<HTML
-                <a class="btn btn-sm btn-warning import-post">Списком</a>
+                <a class="btn btn-sm btn-light import-post">Списком</a>
 HTML;
         }
 
