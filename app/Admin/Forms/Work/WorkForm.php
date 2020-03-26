@@ -34,6 +34,7 @@ class WorkForm extends StepForm
             'prepaid' => $data['work']['prepaid'],
             'additional_information' => $data['work']['additional_information'],
             'work_json' => $data['work']['work_value'],
+            'status' => $data['work']['status'],
         ]);
 
         return redirect()->route('works.show', $work);
@@ -51,6 +52,7 @@ class WorkForm extends StepForm
         $this->number('price', __('Цена'))->placeholder(__('Цена'))->rules('required');
         $this->number('prepaid', __('Аванс'))->placeholder(__('Аванс'))->rules('required')->default(0);
         $this->textarea('additional_information', __('Примечание'))->rows(5);
+        $this->radio('status', __('Статус'))->options([0 => 'Просто создать', 1 => 'Создать и взять в работу', 2 => 'Взять в работу и закончить'])->default('0')->stacked();
 
     }
 

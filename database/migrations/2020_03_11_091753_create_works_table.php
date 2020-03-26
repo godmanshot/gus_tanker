@@ -28,7 +28,9 @@ class CreateWorksTable extends Migration
 
             $table->text('work_json')->nullable();
 
-            // $table->integer('type_work');
+            $table->tinyInteger('status')->nullable();
+            $table->timestamp('ready_time')->nullable();
+
             $table->timestamps();
         });
     }

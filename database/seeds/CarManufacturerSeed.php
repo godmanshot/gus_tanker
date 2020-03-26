@@ -19,5 +19,12 @@ class CarManufacturerSeed extends Seeder
             'created_at' => '2020-03-18 07:05:34',
             'updated_at' => '2020-03-18 07:05:34',
         ]);
+        DB::table('car_manufacturers')->insert([
+            'id' => 2,
+            'name' => 'Toyota',
+            'image' => 'images/bmw_logo_PNG19714.png',
+            'created_at' => '2020-03-18 07:05:34',
+            'updated_at' => '2020-03-18 07:05:34',
+        ]);
     }
 }

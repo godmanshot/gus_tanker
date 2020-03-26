@@ -25,10 +25,12 @@ class CarModelController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new CarModel());
+        
+        $grid->disableExport();
 
         $grid->column('id', __('#'));
-        $grid->column('name', __('Название'));
         $grid->column('manufacturer.name', __('Производитель'));
+        $grid->column('name', __('Название'));
 
         return $grid;
     }
@@ -41,11 +43,14 @@ class CarModelController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(CarModel::findOrFail($id));
+        $carModel = CarModel::findOrFail($id);
+        $show = new Show($carModel);
 
         $show->field('id', __('#'));
         $show->field('name', __('Название'));
-        $show->field('manufacturer_id', __('Производитель'));
+        $show->manufacturer(__('Производитель машины'))->as(function ($manufacturer) {
+            return $manufacturer->info;
+        })->link(route('car-manufacturers.show', $carModel->manufacturer_id));
 
         return $show;
     }
@@ -59,10 +64,10 @@ class CarModelController extends AdminController
     {
         $form = new Form(new CarModel());
 
-        $form->text('name', __('Название'));
-
         $form->select('manufacturer_id', 'Производитель')
-            ->options(\App\CarManufacturer::all()->pluck('name', 'id'));
+            ->options(\App\CarManufacturer::all()->pluck('name', 'id'))->rules('required');
+
+        $form->text('name', __('Название'))->rules('required');
 
         return $form;
     }

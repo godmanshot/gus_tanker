@@ -23,12 +23,11 @@ class AppServiceProvider extends ServiceProvider
         /**
          * Получение СТО взависимости от пользователя, авторизация обязательна
          */
-        $this->app->bind(ServiceStation::class, function ($app) {
+        $this->app->singleton(ServiceStation::class, function ($app) {
             $station = \App\ServiceStationUser::where('user_id', Admin::user()->id)->first();
 
             if(!$station) {
                 throw new \Exception("У данного пользователя отсутствует СТО", 1);
-                
             }
 
             return $station->serviceStation;

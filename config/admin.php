@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'GUS',
+    'name' => 'GAS',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>OK</b> GUS',
+    'logo' => '<b>OK</b> GAS',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => 'OK GUS',
+    'title' => 'OK GAS',
 
     /*
     |--------------------------------------------------------------------------
@@ -210,7 +210,7 @@ return [
     */
     'operation_log' => [
 
-        'enable' => true,
+        'enable' => false,
 
         /*
          * Only logging allowed methods in the list

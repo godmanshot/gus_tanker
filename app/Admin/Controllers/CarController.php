@@ -28,6 +28,8 @@ class CarController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new ClientCar());
+        
+        $grid->disableExport();
 
         $grid->column('id', __('#'));
 
@@ -46,7 +48,10 @@ class CarController extends AdminController
         $grid->column('body_number', __('Номер кузова'));
         $grid->column('chassis', __('Шасси'));
         $grid->column('data_sheet', __('Тех. пасспорт'));
-        $grid->column('created_at', __('Создан'));
+
+        $grid->column('created_at', __('Создано'))->display(function ($price) {
+            return $this->created_at->format("d.m.Y");
+        });
 
         return $grid;
     }
@@ -59,11 +64,19 @@ class CarController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(ClientCar::findOrFail($id));
+        $clientCar = ClientCar::findOrFail($id);
+        $show = new Show($clientCar);
 
         $show->field('id', __('#'));
-        $show->field('model_id', __('Модель'));
-        $show->field('client_id', __('Клиент'));
+        
+        $show->model(__('Модель машины'))->as(function ($model) {
+            return $model->info;
+        })->link(route('car-models.show', $clientCar->model_id));
+
+        $show->client(__('Клиент'))->as(function ($client) {
+            return $client->info;
+        })->link(route('clients.show', $clientCar->client_id));
+
         $show->field('year_manufacture', __('Год выпуска'));
         $show->field('cylinders', __('Кол. цилиндров'));
         $show->field('vin', __('VIN'));
@@ -81,7 +94,7 @@ class CarController extends AdminController
      *
      * @return Form
      */
-    public function form()
+    public function form($need_require = true)
     {
         $form = new Form(new ClientCar());
 
@@ -90,29 +103,25 @@ class CarController extends AdminController
         $clients = $clients->map(function($m) { return $m->info;});
 
         $form->select('client_id', 'Клиент')
-            ->options($clients);
+            ->options($clients)->rules($need_require ? 'required' : '');
 
         $car_models = CarModel::all()->keyBy('id');
 
         $car_models = $car_models->map(function($m) { return $m->info;});
 
-        $form->select('model_id', 'Модель машины')->options($car_models);
+        $form->select('model_id', 'Модель машины')->options($car_models)->rules($need_require ? 'required' : '');
 
-        $form->date('year_manufacture', __('Год выпуска'))->placeholder(__('Год выпуска'))->icon(false)->format('YYYY')->width('200px');
-        $form->radio('cylinders', __('Кол. цилиндров'))->options(['4' => '4 цилиндров', '8'=> '8 цилиндров'])->default('4');
-        $form->text('vin', __('VIN'))->placeholder(__('VIN'));
-        $form->text('government_number', __('Гос. номер'))->placeholder(__('Гос. номер'));
-        $form->text('body_number', __('Номер кузова'))->placeholder(__('Номер кузова'));
-        $form->text('chassis', __('Шасси'))->placeholder(__('Шасси'));
-        $form->text('data_sheet', __('Тех. пасспорт'))->placeholder(__('Тех. пасспорт'));
-
-        // $f = $this->clientForm();
-
-        // $form->html($f->render());
+        $form->date('year_manufacture', __('Год выпуска'))->placeholder(__('Год выпуска'))->icon(false)->format('YYYY')->width('200px')->rules($need_require ? 'required' : '');
+        $form->radio('cylinders', __('Кол. цилиндров'))->options(['4' => '4 цилиндров', '8'=> '8 цилиндров'])->default('4')->rules($need_require ? 'required' : '');
+        $form->text('vin', __('VIN'))->placeholder(__('VIN'))->rules($need_require ? 'required' : '');
+        $form->text('government_number', __('Гос. номер'))->placeholder(__('Гос. номер'))->rules($need_require ? 'required' : '');
+        $form->text('body_number', __('Номер кузова'))->placeholder(__('Номер кузова'))->rules($need_require ? 'required' : '');
+        $form->text('chassis', __('Шасси'))->placeholder(__('Шасси'))->rules($need_require ? 'required' : '');
+        $form->text('data_sheet', __('Тех. пасспорт'))->placeholder(__('Тех. пасспорт'))->rules($need_require ? 'required' : '');
 
         $form->disableEditingCheck();
-        
         $form->disableViewCheck();
+        
         return $form;
     }
 

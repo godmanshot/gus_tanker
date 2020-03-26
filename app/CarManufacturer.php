@@ -8,6 +8,18 @@ class CarManufacturer extends Model
 {
     public function models()
     {
-        return $this->hasMany('App\CarModel');
+        return $this->hasMany('App\CarModel', 'manufacturer_id', 'id');
+    }
+
+    public function scopeByModel($query, $model)
+    {
+        return $query->whereHas('models', function($query) use ($model) {
+            $query->where('id', $model);
+        });
+    }
+
+    public function getInfoAttribute()
+    {
+        return $this->name;
     }
 }

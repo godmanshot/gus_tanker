@@ -19,6 +19,8 @@ Route::group([
     $router->resource('car-models', CarModelController::class);
     $router->resource('client-cars', CarController::class);
     $router->resource('works', WorkController::class);
+    $router->resource('service-stations', StationController::class);
+    $router->resource('tech-inspections', TechInspectionController::class);
     
     Route::get('/api/clients', function(Request $request) {
         $q = $request->get('q');
@@ -53,6 +55,35 @@ Route::group([
 
         return $clients;
     });
+    
+    Route::get('/works/{work}/documents', function(Request $request, \App\Work $work) {
+        $writer = new \App\Work\PdfWorkWriter();
+        // $writer = new \App\Work\DocxWorkWriter();
+        // $writer = new \App\Work\HtmlWorkWriter();
+    
+        return $work->write($writer);
+    })->name('works.documents');
+    
+
+    Route::get('/works/{work}/status', function(Request $request, \App\Work $work) {
+        $request->validate([
+            'status' => 'required|in:0,1,2'
+        ]);
+
+        $work->status = $request->status;
+
+        if($request->status == \App\Work::STATUS_CREATE) {
+            $work->ready_time = null;
+        } elseif($request->status == \App\Work::STATUS_START) {
+            $work->ready_time = null;
+        } elseif($request->status == \App\Work::STATUS_READY) {
+            $work->ready_time = now();
+        }
+        
+        $work->save();
+
+        return back();
+    })->name('works.status');
     
 });
 

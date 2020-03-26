@@ -26,5 +26,12 @@ class CarModelSeed extends Seeder
             'created_at' => '2020-03-18 07:05:34',
             'updated_at' => '2020-03-18 07:05:34',
         ]);
+        DB::table('car_models')->insert([
+            'id' => 3,
+            'name' => 'Camry 300',
+            'manufacturer_id' => 2,
+            'created_at' => '2020-03-18 07:05:34',
+            'updated_at' => '2020-03-18 07:05:34',
+        ]);
     }
 }

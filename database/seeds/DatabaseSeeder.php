@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ClientCarSeed::class);
         $this->call(ServiceStationClientSeed::class);
         $this->call(MenuSeed::class);
+        $this->call(TechInspectionSeed::class);
     }
 }

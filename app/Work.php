@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Work extends Model
 {
+    const STATUS_CREATE = 0;
+    const STATUS_START = 1;
+    const STATUS_READY = 2;
+
     public $fillable = [
         'client_id',
         'car_id',
@@ -13,9 +17,22 @@ class Work extends Model
         'prepaid',
         'additional_information',
         'work_json',
+        'status',
+        'ready_time',
     ];
     
     private $writer;
+
+    public function getStatusNameAttribute()
+    {
+        if($this->status == static::STATUS_CREATE) {
+            return "Не в работе";
+        } else if($this->status == static::STATUS_START) {
+            return "В работе";
+        } else if($this->status == static::STATUS_READY) {
+            return "Закончено";
+        }
+    }
 
     public function model()
     {
@@ -117,7 +134,7 @@ class Work extends Model
                 $balloons[] = ['id' => $balloon['Номер'], 'name' => $items['ballon_manufacturer'].', '.$items['gas_type'].', '.$items['ballon_type_cng'].', '.$balloon['Объем'].'л.'];
             }
         } else if($items['gas_type'] == "LPG") {
-            $balloons[] = ['id' => $items['balloon_id'], 'name' => $items['ballon_manufacturer'].', '.$items['gas_type'].', '.$items['ballon_type_lpg'].', '.$items['klapan_type_lpg'].', '.($items['ballon_volume'] != 'other' ? $items['ballon_volume'] : $items['ballon_volume-Comment']).'л.'];
+            $balloons[] = ['id' => $items['balloon_id'], 'name' => $items['ballon_manufacturer'].', '.$items['gas_type'].', '.$items['ballon_type_lpg'].(!empty($items['klapan_type_lpg']) ? ', '.$items['klapan_type_lpg'] : '').', '.($items['ballon_volume'] != 'other' ? $items['ballon_volume'] : $items['ballon_volume-Comment']).'л.'];
         }
 
         return $balloons;
@@ -126,7 +143,7 @@ class Work extends Model
     public function reducer() {
         $items = $this->items();
 
-        $reducer = ['id' => 1, 'name' => $items['gearbox_manufacturer'].', '.$items['gearbox_model']];
+        $reducer = ['id' => $items['gearbox_id'], 'name' => $items['gearbox_manufacturer'].', '.$items['gearbox_model']];
 
         return $reducer;
     }
@@ -134,7 +151,7 @@ class Work extends Model
     public function ecu() {
         $items = $this->items();
 
-        $ecu = ['id' => 1, 'name' => $items['ecu_manufacturer'].', '.$items['ecu_model']];
+        $ecu = ['id' => $items['ecu_id'], 'name' => $items['ecu_manufacturer'].', '.$items['ecu_model']];
 
         return $ecu;
     }
@@ -142,7 +159,7 @@ class Work extends Model
     public function rails() {
         $items = $this->items();
 
-        $rail = ['id' => 1, 'name' => $items['nozzles_manufacturer'].', '.$items['nozzles_model']];
+        $rail = ['id' => $items['nozzles_id'], 'name' => $items['nozzles_manufacturer'].', '.$items['nozzles_model']];
 
         return $rail;
     }
@@ -203,5 +220,33 @@ class Work extends Model
         return $this->car->autoLengthFull ?? '';
     }
 
+    public function scopeByManufacturer($query, $manufacturer)
+    {
+        return $query->whereHas('car', function ($query) use ($manufacturer) {
+            $query->whereHas('model', function ($query) use ($manufacturer) {
+                $query->where('manufacturer_id', $manufacturer);
+            });
+        });
+    }
 
+    public function scopeByModel($query, $model)
+    {
+        return $query->whereHas('car', function ($query) use ($model) {
+            $query->where('model_id', $model);
+        });
+    }
+
+    public function scopeByCylinders($query, $cylinders)
+    {
+        return $query->whereHas('car', function ($query) use ($cylinders) {
+            $query->where('cylinders', $cylinders);
+        });
+    }
+
+    public function scopeByStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    
 }

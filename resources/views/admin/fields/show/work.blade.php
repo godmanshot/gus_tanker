@@ -1,9 +1,19 @@
 <div class="col-12">
-    @if($work->isInstall())
-        <h4 style="margin-top: 0;"><span class="label label-success">Установка</span></h4>
-    @else
-        <h4 style="margin-top: 0;"><span class="label label-info">Сервис</span></h4>
-    @endif
+    <h4 style="margin-top: 0;">
+        @if($work->isInstall())
+            <span class="label label-success">Установка</span>
+        @else
+            <span class="label label-info">Сервис</span>
+        @endif
+
+        @if($work->status == \App\Work::STATUS_CREATE)
+            <span class="label btn-warning">Статус: {{$work->statusName}}</span>
+        @elseif($work->status == \App\Work::STATUS_START)
+            <span class="label btn-primary">Статус: {{$work->statusName}}</span>
+        @elseif($work->status == \App\Work::STATUS_READY)
+            <span class="label btn-success">Статус: {{$work->statusName}}</span>
+        @endif
+    </h4>
 </div>
 
 @if($work->isInstall())
@@ -81,7 +91,7 @@
                 </td>
             </tr>
             @endif
-            @if(!empty($work->items()['replacement']))
+            @if(!empty($work->items()['other']))
             <tr>
                 <td class="">Остальное</td>
                 <td class="">

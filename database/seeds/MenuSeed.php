@@ -47,6 +47,20 @@ class MenuSeed extends Seeder
                 'icon'      => 'fa-align-justify',
                 'uri'       => '/client-cars',
             ],
+            [
+                'parent_id' => 0,
+                'order'     => 13,
+                'title'     => 'СТО',
+                'icon'      => 'fa-align-justify',
+                'uri'       => '/service-stations',
+            ],
+            [
+                'parent_id' => 0,
+                'order'     => 14,
+                'title'     => 'Тех. обслуживание',
+                'icon'      => 'fa-align-justify',
+                'uri'       => '/tech-inspections',
+            ],
         ]);
     }
 }

@@ -26,6 +26,8 @@ class ClientController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Client());
+        
+        $grid->disableExport();
 
         $grid->column('id', __('#'));
         $grid->column('first_name', __('Имя'));
@@ -62,15 +64,15 @@ class ClientController extends AdminController
      *
      * @return Form
      */
-    public function form()
+    public function form($need_require = true)
     {
         $form = new Form(new Client());
 
-        $form->text('first_name', __('Имя'));
-        $form->text('last_name', __('Фамилия'));
-        $form->text('iin', __('ИИН'));
-        $form->mobile('phone', __('Телефон'))->options(['mask' => '+7 999 9999999']);
-
+        $form->text('first_name', __('Имя'))->rules($need_require ? 'required' : '');
+        $form->text('last_name', __('Фамилия'))->rules($need_require ? 'required' : '');
+        $form->text('iin', __('ИИН'))->rules($need_require ? 'required' : '');
+        $form->mobile('phone', __('Телефон'))->help('Например: 77071234567')->rules($need_require ? 'required' : '');
+        // ->options(['mask' => '+7 999 9999999'])
         return $form;
     }
 }

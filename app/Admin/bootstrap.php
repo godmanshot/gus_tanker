@@ -18,8 +18,11 @@
  *
  */
 
-Encore\Admin\Form::forget(['map', 'editor']);
+// Encore\Admin\Form::forget(['map', 'editor']);
+\Encore\Admin\Form::extend('editor', Encore\Admin\Form\Field\Editor::class);
 
 \Encore\Admin\Form::extend('surveyjs', \App\Admin\Extensions\SurveyJS::class);
 
 \Encore\Admin\Show::extend('work', \App\Admin\Extensions\WorkShowField::class);
+
+\Encore\Admin\Show::extend('changeStatus', \App\Admin\Extensions\WorkChangeStatusField::class);

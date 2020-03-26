@@ -27,6 +27,8 @@ class PdfWorkWriter extends WorkWriter {
         $ecu = $this->work->ecu();
         $rails = $this->work->rails();
 
+        $client_info = $this->work->client->info;
+
         
         $warranty_text = $this->work->warranty_text();
 
@@ -67,12 +69,13 @@ class PdfWorkWriter extends WorkWriter {
         ]);
 
         $balloons_html = '';
+        $i = 1;
         foreach ($balloons as $balloon) {
             $balloons_html .= <<<EOT
 
             <tr>
                 <td style="width: 33%;padding: 5px 10px;">
-                    Баллон
+                    Баллон #$i
                 </td>
                 <td style="width: 33%;padding: 5px 10px; text-align: center;">
                     {$balloon['name']}
@@ -82,6 +85,7 @@ class PdfWorkWriter extends WorkWriter {
                 </td>
             </tr>
 EOT;
+            $i++;
         }
 
         $html = <<<EOT
@@ -693,7 +697,7 @@ $conditions = <<<EOT
         <table width="100%" style="overflow: visible;">
             <tr>
                 <td style="width:100%;border-bottom: 1px solid;text-align: center;">
-                    $date_install
+                    $client_info
                 </td>
             </tr>
             <tr>

@@ -25,6 +25,8 @@ class CarManufacturerController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new CarManufacturer());
+        
+        $grid->disableExport();
 
         $grid->column('id', __('#'));
         $grid->column('name', __('Название'));
@@ -44,7 +46,7 @@ class CarManufacturerController extends AdminController
         $show = new Show(CarManufacturer::findOrFail($id));
 
         $show->field('id', __('#'));
-        $show->field('image', __('Лого'));
+        $show->field('image', __('Лого'))->image();
         $show->field('name', __('Название'));
 
         return $show;
@@ -59,8 +61,8 @@ class CarManufacturerController extends AdminController
     {
         $form = new Form(new CarManufacturer());
 
-        $form->text('name', __('Название'));
-        $form->image('image', __('Лого'));
+        $form->text('name', __('Название'))->rules('required');
+        $form->image('image', __('Лого'))->rules('required');
 
         return $form;
     }
