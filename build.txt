@@ -1,5 +1,6 @@
 cp .env.example .env
 composer install
+php artisan storage:link
 php artisan admin:install
 php artisan migrate:fresh --seed
 
