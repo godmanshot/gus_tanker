@@ -10,7 +10,8 @@ class Client extends Model
         'first_name',
         'last_name',
         'iin',
-        'phone'
+        'phone',
+        'address'
     ];
 
     public function getInfoAttribute()

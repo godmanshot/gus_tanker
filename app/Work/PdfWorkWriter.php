@@ -6,7 +6,7 @@ use App\Work;
 
 class PdfWorkWriter extends WorkWriter {
 
-    public function write()
+    public function write($path)
     {
         $warranty_no = $this->work->warranty_no();
         $date_install = $this->work->date_install();
@@ -720,9 +720,10 @@ $conditions = <<<EOT
 </body>
 </html>
 EOT;
-$mpdf->WriteHTML($conditions);
-        
+        $mpdf->WriteHTML($conditions);
+                
+        $mpdf->Output($path.'/'.time().'.pdf', 'F');
 
-        return $mpdf->Output();
+        return $path.'/'.time().'.pdf';
     }
 }

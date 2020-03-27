@@ -30,6 +30,9 @@ class CreateCarsTable extends Migration
             $table->string('chassis')->nullable();
             $table->string('data_sheet')->nullable();
             $table->integer('auto_length')->nullable();
+            $table->string('type_work_engine')->nullable();
+            $table->string('equipment')->nullable();
+            $table->string('state')->nullable();
             
             $table->timestamps();
         });

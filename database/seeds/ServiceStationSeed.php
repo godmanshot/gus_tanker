@@ -27,7 +27,10 @@ EOT;
 
         DB::table('service_stations')->insert([
             'id' => 1,
-            'name' => 'Главная СТО',
+            'name' => 'Газамир-ПРО',
+            'full_name' => 'ТОО «Газамир-ПРО»',
+            'id_of_company' => 'СТ ТОО 40324310-027-2008',
+            'boss_otk' => 'Баситов Р.Т.',
             'image' => 'ыфвфыв',
             'phone' => '+77076060461',
             'address' => 'Джандосова 69/6',
@@ -39,6 +42,7 @@ EOT;
             'city_name' => 'Алматы',
             'response_person' => 'Ли Максим Владиславович',
             'warranty_text' => $text,
+            'сertificate_install' => '№ 6-7-87/1294 от 09.04.2012',
             'created_at' => NULL,
             'updated_at' => NULL,
         ]);

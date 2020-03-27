@@ -45,6 +45,7 @@ class WorkController extends AdminController
         });
 
         $grid->model()->with('car');
+        $grid->model()->orderBy('created_at', 'desc');
 
 
         if(!$wallbox_view->isList()) {
@@ -138,7 +139,7 @@ class WorkController extends AdminController
         });
 
         $grid->column('created_at', __('Создано'))->display(function ($price) {
-            return $this->created_at->format("d.m.Y");
+            return $this->created_at->format("d.m.Y H:i");
         });
 
         return $grid;

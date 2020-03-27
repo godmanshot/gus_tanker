@@ -26,3 +26,25 @@
 \Encore\Admin\Show::extend('work', \App\Admin\Extensions\WorkShowField::class);
 
 \Encore\Admin\Show::extend('changeStatus', \App\Admin\Extensions\WorkChangeStatusField::class);
+
+\Encore\Admin\Facades\Admin::js('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js');
+\Encore\Admin\Facades\Admin::css('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css');
+
+\Encore\Admin\Facades\Admin::style("
+.content_work::-webkit-scrollbar {
+    width: 5px;
+}
+  
+.content_work::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+.content_work::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+.content_work::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+");
+

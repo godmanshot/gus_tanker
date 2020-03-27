@@ -18,6 +18,7 @@ class ClientSeed extends Seeder
             'last_name' => 'Ли',
             'iin' => '990505301058',
             'phone' => '+7 222 2222222',
+            'address' => 'г.Алматы ул.Айманова 70-16',
             'created_at' => '2020-03-18 05:30:53',
             'updated_at' => '2020-03-18 05:30:53'
         ]);

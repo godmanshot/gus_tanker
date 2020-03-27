@@ -16,6 +16,9 @@ class CreateServiceStationsTable extends Migration
         Schema::create('service_stations', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->string("full_name");
+            $table->string("id_of_company");
+            $table->string("boss_otk");
             $table->string("image");
             $table->string("phone");
             $table->string("address");
@@ -27,6 +30,8 @@ class CreateServiceStationsTable extends Migration
             $table->string("city_name");
             $table->string("response_person");
             $table->longText("warranty_text");
+            $table->string("сertificate_install");
+            
             $table->timestamps();
         });
     }

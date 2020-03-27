@@ -6,6 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServiceStation extends Model
 {
+    public $fillable = [
+        'name',
+        'full_name',
+        'id_of_company',
+        'boss_otk',
+        'image',
+        'phone',
+        'address',
+        'currency',
+        'timezone',
+        'warranty_exp_month',
+        'warranty_exp_lenght',
+        'to_period',
+        'city_name',
+        'response_person',
+        'warranty_text',
+    ];
+
     public function clients()
     {
         return $this->belongsToMany('App\Client', 'service_station_clients');
@@ -16,9 +34,6 @@ class ServiceStation extends Model
         return $this->belongsToMany('App\Work', 'service_station_works');
     }
 
-    public function getFullNameAttribute() {
-        return $this->name;
-    }
 
     public function getWarrantyExpMonthFullAttribute() {
         return $this->warranty_exp_month;

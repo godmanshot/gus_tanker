@@ -24,6 +24,9 @@ class ClientCarSeed extends Seeder
             'chassis' => '4dfste34r6354te',
             'data_sheet' => '4563rtgfdg345e45',
             'auto_length' => 10,
+            'type_work_engine' => 'Бензиновый',
+            'equipment' => 'Полная',
+            'state' => 'Хорошее',
             'created_at' => '2020-03-18 07:10:27',
             'updated_at' => '2020-03-18 07:10:27',
         ]);

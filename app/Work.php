@@ -99,6 +99,12 @@ class Work extends Model
         return $items['gas_type'];
     }
     
+    public function gbo_type() {
+        $items = $this->items();
+
+        return $items['gbo_type'];
+    }
+    
     public function isLpg() {
         $items = $this->items();
 
@@ -109,6 +115,12 @@ class Work extends Model
         $items = $this->items();
 
         return $items['ballon_manufacturer'];
+    }
+    
+    public function manufacturer_country() {
+        $items = $this->items();
+
+        return $items['manufacturer_country'];
     }
     
     public function ballon_type_cng() {
@@ -135,6 +147,23 @@ class Work extends Model
             }
         } else if($items['gas_type'] == "LPG") {
             $balloons[] = ['id' => $items['balloon_id'], 'name' => $items['ballon_manufacturer'].', '.$items['gas_type'].', '.$items['ballon_type_lpg'].(!empty($items['klapan_type_lpg']) ? ', '.$items['klapan_type_lpg'] : '').', '.($items['ballon_volume'] != 'other' ? $items['ballon_volume'] : $items['ballon_volume-Comment']).'л.'];
+        }
+
+        return $balloons;
+    }
+    
+    public function balloonsWithoutManufacturerAndType() {
+        $items = $this->items();
+
+        $balloons = [];
+
+        if($items['gas_type'] == "CNG") {
+
+            foreach($items['cng_balloons'] as $balloon) {
+                $balloons[] = ['id' => $balloon['Номер'], 'name' => $items['gas_type'].', '.$items['ballon_type_cng'].', '.$balloon['Объем'].'л.'];
+            }
+        } else if($items['gas_type'] == "LPG") {
+            $balloons[] = ['id' => $items['balloon_id'], 'name' => $items['gas_type'].', '.$items['ballon_type_lpg'].(!empty($items['klapan_type_lpg']) ? ', '.$items['klapan_type_lpg'] : '').', '.($items['ballon_volume'] != 'other' ? $items['ballon_volume'] : $items['ballon_volume-Comment']).'л.'];
         }
 
         return $balloons;
@@ -177,7 +206,7 @@ class Work extends Model
     }
 
     public function company_name() {
-        return $this->station[0]->fullName ?? '';
+        return $this->station[0]->name ?? '';
     }
 
     public function warranty_exp_month() {
@@ -210,6 +239,14 @@ class Work extends Model
 
     public function gov_number() {
         return $this->car->govNumberFull ?? '';
+    }
+
+    public function car_year() {
+        return $this->car->year_manufacture ?? '';
+    }
+
+    public function car_body_number() {
+        return $this->car->body_number ?? '';
     }
 
     public function vin() {
@@ -248,5 +285,20 @@ class Work extends Model
         return $query->where('status', $status);
     }
 
-    
+    public static function statisticsByMonth($month = 6)
+    {
+        $work = Work::selectRaw("SUM(price) as sum, DATE_FORMAT(created_at,'%Y.%m') as month")->groupBy(\Illuminate\Support\Facades\DB::raw("DATE_FORMAT(created_at,'%Y.%m')"))->orderBy("created_at")->limit($month);
+        $_sum_months = $work->withoutGlobalScope('currentStation')->get()->keyBy('month');
+        
+        $sum_months = [];
+
+        $now = now();
+
+        for($i = 0; $i < $month; $i++) {
+            $_month = $now->subMonth(1)->format("Y.m");
+            $sum_months[$_month] = isset($_sum_months[$_month]) ? (int)$_sum_months[$_month]->sum : 0;
+        }
+
+        return $sum_months;
+    }
 }

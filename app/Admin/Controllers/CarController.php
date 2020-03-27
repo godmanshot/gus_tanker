@@ -84,6 +84,10 @@ class CarController extends AdminController
         $show->field('body_number', __('Номер кузова'));
         $show->field('chassis', __('Шасси'));
         $show->field('data_sheet', __('Тех. пасспорт'));
+        $show->field('type_work_engine', __('Принцип работы двигателя'));
+        $show->field('equipment', __('Комплектация АТС'));
+        $show->field('state', __('Техническое состояние АТС'));
+        $show->field('auto_length', __('Пробег в км.'));
         $show->field('created_at', __('Создан'));
 
         return $show;
@@ -118,7 +122,11 @@ class CarController extends AdminController
         $form->text('body_number', __('Номер кузова'))->placeholder(__('Номер кузова'))->rules($need_require ? 'required' : '');
         $form->text('chassis', __('Шасси'))->placeholder(__('Шасси'))->rules($need_require ? 'required' : '');
         $form->text('data_sheet', __('Тех. пасспорт'))->placeholder(__('Тех. пасспорт'))->rules($need_require ? 'required' : '');
-
+        $form->text('type_work_engine', __('Принцип работы двигателя'))->placeholder(__('Принцип работы двигателя'))->rules($need_require ? 'required' : '');
+        $form->text('equipment', __('Комплектация АТС'))->placeholder(__('Комплектация АТС'))->rules($need_require ? 'required' : '');
+        $form->text('state', __('Техническое состояние АТС'))->placeholder(__('Техническое состояние АТС'))->rules($need_require ? 'required' : '');
+        $form->number('auto_length', __('Пробег в км.'))->placeholder(__('Пробег в км.'))->rules($need_require ? 'required' : '');
+        
         $form->disableEditingCheck();
         $form->disableViewCheck();
         

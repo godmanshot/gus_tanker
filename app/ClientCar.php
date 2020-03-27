@@ -16,6 +16,9 @@ class ClientCar extends Model
         'body_number',
         'chassis',
         'data_sheet',
+        'type_work_engine',
+        'equipment',
+        'state',
     ];
 
     public function model()
@@ -50,7 +53,7 @@ class ClientCar extends Model
     }
 
     public function getAutoLengthFullAttribute() {
-        return $this->auto_length.' тыс. км.';
+        return $this->auto_length.' км.';
     }
 
 }

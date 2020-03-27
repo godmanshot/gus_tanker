@@ -40,6 +40,41 @@
      },
      {
       "type": "panel",
+      "name": "panel10",
+      "elements": [
+       {
+        "type": "html",
+        "name": "question1",
+        "html": {
+         "ru": "<h1 style=\"color: #3c8dbc;\">Тип ГБО</h1>"
+        }
+       },
+       {
+        "type": "radiogroup",
+        "name": "gbo_type",
+        "isRequired": true,
+        "titleLocation": "hidden",
+        "choices": [
+         {
+          "value": "Евро-3",
+          "text": {
+           "ru": "Евро-3"
+          }
+         },
+         {
+          "value": "Евро-4",
+          "text": {
+           "ru": "Евро-4"
+          }
+         }
+        ],
+        "colCount": 2
+       }
+      ],
+      "visibleIf": "{install_or_service} = 'Установка'"
+     },
+     {
+      "type": "panel",
       "name": "panel5",
       "elements": [
        {
@@ -81,6 +116,15 @@
         "html": "<h2 style=\"color: #3c8dbc;\">Баллон</h2>"
        },
        {
+        "type": "text",
+        "name": "manufacturer_country",
+        "visibleIf": "{install_or_service} = 'Установка'",
+        "title": {
+         "ru": "Страна производитель"
+        },
+        "isRequired": true
+       },
+       {
         "type": "dropdown",
         "name": "ballon_manufacturer",
         "visibleIf": "{install_or_service} = 'Установка'",
@@ -117,15 +161,15 @@
         "isRequired": true,
         "choices": [
          {
-          "value": "Внутренний",
+          "value": "Внутренняя горловина",
           "text": {
-           "ru": "Внутренний"
+           "ru": "Внутренняя горловина"
           }
          },
          {
-          "value": "Наружный",
+          "value": "Наружная горловина",
           "text": {
-           "ru": "Наружный"
+           "ru": "Наружная горловина"
           }
          }
         ]

@@ -36,7 +36,12 @@ class StationController extends AdminController
         
         $form->setAction('service-stations/'.$station->id);
 
-        $form->text('name', __('Название'))->rules('required');
+        $form->text('name', __('Название'))->help('Газамир-ПРО')->rules('required');
+        $form->text('full_name', __('Полное название'))->help('Например: ТОО «Газамир-ПРО»')->rules('required');
+        $form->text('id_of_company', __('Регистрационный номер'))->rules('required');
+        $form->text('сertificate_install', __('Свидетельство о согласовании конструкции'))->rules('required');
+        $form->text('boss_otk', __('Название'))->rules('required');
+
         $form->image('image', __('Логотип'))->rules('required');
         $form->mobile('phone', __('Телефон в международном формате'))->help('Например: 77071234567')->rules('required');
         $form->text('city_name', __('Город'))->rules('required');

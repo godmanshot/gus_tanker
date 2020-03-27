@@ -32,22 +32,28 @@ class HomeController extends Controller
             <div class='title'>{$station->name}</div>
 HTML;
 
+        $station = station();
+
+        $works = $station->works;
+
         return $content
             ->title('Главная')
             ->description('Главная страница')
             ->row($title)
-            ->row(function (Row $row) {
+            ->row(function (Row $row) use ($works) {
 
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::environment());
+                $row->column(4, function (Column $column) use ($works) {
+                    $column->append(view('admin.charts.work', ['works' => $works->groupBy('status')]));
+                });
+
+                $row->column(4, function (Column $column) use ($works) {
+                    $sum_by_month = \App\Work::statisticsByMonth(8);
+                    $column->append(view('admin.charts.month_cash', ['works' => $works->groupBy('status'), 'sum_by_month' => $sum_by_month]));
                 });
 
                 $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::extensions());
-                });
-
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::dependencies());
+                    $clients_count = \App\Client::all()->count();
+                    $column->append(view('admin.charts.clients', ['clients_count' => $clients_count]));
                 });
             })->breadcrumb(
                 ['text' => 'Главная', 'url' => '/'],

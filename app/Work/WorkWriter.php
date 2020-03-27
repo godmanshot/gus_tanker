@@ -10,11 +10,10 @@ abstract class WorkWriter {
     protected $work;
     protected $station;
 
-    // public function __construct($station = false, $work = false)
-    // {
-    //     $this->station = $station;
-    //     $this->work = $work;
-    // }
+    public function __construct($file = null)
+    {
+        $this->file = $file;
+    }
 
     public function setWork($work)
     {
@@ -36,5 +35,5 @@ abstract class WorkWriter {
         return $this->station;
     }
 
-    abstract public function write();
+    abstract public function write($path);
 }
