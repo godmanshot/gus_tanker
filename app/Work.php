@@ -287,7 +287,7 @@ class Work extends Model
 
     public static function statisticsByMonth($month = 6)
     {
-        $work = Work::selectRaw("SUM(price) as sum, DATE_FORMAT(created_at,'%Y.%m') as month")->groupBy(\Illuminate\Support\Facades\DB::raw("DATE_FORMAT(created_at,'%Y.%m')"))->orderBy("created_at")->limit($month);
+        $work = Work::selectRaw("SUM(price) as sum, DATE_FORMAT(created_at,'%Y.%m') as month")->groupBy(\Illuminate\Support\Facades\DB::raw("DATE_FORMAT(created_at,'%Y.%m')"))->orderBy(\Illuminate\Support\Facades\DB::raw("DATE_FORMAT(created_at,'%Y.%m')"))->limit($month);
         $_sum_months = $work->withoutGlobalScope('currentStation')->get()->keyBy('month');
         
         $sum_months = [];
