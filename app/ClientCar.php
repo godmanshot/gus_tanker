@@ -35,7 +35,7 @@ class ClientCar extends Model
     {
         $model_name = $this->model;
 
-        return $model_name->info.' (VIN: '.$this->vin.', '.$this->cylinders.' цилиндров)';
+        return $model_name->info.' (Номер: '.$this->government_number.', '.$this->cylinders.' цилиндров)';
     }
 
     public function getfullNameAttribute() {

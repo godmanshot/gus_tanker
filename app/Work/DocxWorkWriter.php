@@ -48,7 +48,7 @@ class DocxWorkWriter extends WorkWriter {
         $equipment = $this->work->car->equipment;
         $state = $this->work->car->state;
 
-        $balloons = collect($this->work->balloonsWithoutManufacturerAndType())->implode('name', ',');
+        $balloons = collect($this->work->balloonsWithoutManufacturerAndType())->implode('name', '; ');
         $company_name = $this->work->company_name();
 
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($template);
