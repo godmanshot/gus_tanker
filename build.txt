@@ -1,3 +1,4 @@
+cp .env.example .env
 composer install
 php artisan admin:install
 php artisan migrate:fresh --seed
@@ -34,8 +35,8 @@ STAG R14
 
 Сделать:
 
-Word
-Статистика
+Word+
+Статистика+
 Документы при сервисе-
 Статус работы+
 Оплата-

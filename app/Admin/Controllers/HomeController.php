@@ -56,7 +56,7 @@ HTML;
                     $column->append(view('admin.charts.clients', ['clients_count' => $clients_count]));
                 });
             })->breadcrumb(
-                ['text' => 'Главная', 'url' => '/'],
+                ['text' => 'Главная', 'url' => '/']
             );
     }
 }
