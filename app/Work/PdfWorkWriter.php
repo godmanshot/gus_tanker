@@ -65,7 +65,8 @@ class PdfWorkWriter extends WorkWriter {
                     'R' => 'RobotoSlab-Black.ttf',
                 ]
             ],
-            'default_font' => 'roboto_slab'
+            'default_font' => 'roboto_slab',
+            'tempDir' => base_path('storage/temp')
         ]);
 
         $balloons_html = '';
