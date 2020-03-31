@@ -31,6 +31,8 @@ class CreateWorksTable extends Migration
             $table->tinyInteger('status')->nullable();
             $table->timestamp('ready_time')->nullable();
 
+            $table->tinyInteger('pay_type')->nullable();
+
             $table->timestamps();
         });
     }

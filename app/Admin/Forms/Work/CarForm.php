@@ -48,7 +48,9 @@ class CarForm extends StepForm
         $this->divider('Создать новую машину клиента');
 
         foreach($this->clientFormField() as $field) {
-            $field->rules("required_without_all:car_id", ['required_without_all' => "Заполните все данные или выберите машину клиента из базы"]);
+            if($field->variables()['column'] != 'vin') {
+                $field->rules("required_without_all:car_id", ['required_without_all' => "Заполните все данные или выберите машину клиента из базы"]);
+            }
             $this->pushField($field);
         }
     }

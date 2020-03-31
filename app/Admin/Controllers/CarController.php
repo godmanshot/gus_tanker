@@ -84,9 +84,8 @@ class CarController extends AdminController
         $show->field('body_number', __('Номер кузова'));
         $show->field('chassis', __('Шасси'));
         $show->field('data_sheet', __('Тех. пасспорт'));
-        $show->field('type_work_engine', __('Принцип работы двигателя'));
-        $show->field('equipment', __('Комплектация АТС'));
-        $show->field('state', __('Техническое состояние АТС'));
+        $show->field('equipment', __('Комплектация АТС'))->using([1 => 'Полная', 0 => 'Не полная']);
+        $show->field('state', __('Техническое состояние АТС'))->using([1 => 'Норм', 0 => 'Не норм']);
         $show->field('auto_length', __('Пробег в км.'));
         $show->field('created_at', __('Создан'));
 
@@ -117,14 +116,13 @@ class CarController extends AdminController
 
         $form->date('year_manufacture', __('Год выпуска'))->placeholder(__('Год выпуска'))->icon(false)->format('YYYY')->width('200px')->rules($need_require ? 'required' : '');
         $form->radio('cylinders', __('Кол. цилиндров'))->options(['4' => '4 цилиндров', '8'=> '8 цилиндров'])->default('4')->rules($need_require ? 'required' : '');
-        $form->text('vin', __('VIN'))->placeholder(__('VIN'))->rules($need_require ? 'required' : '');
+        $form->text('vin', __('VIN'))->placeholder(__('VIN'))->inputmask(['mask' => '*****************', 'clearIncomplete' => true])->help('Заполните 17 символов VIN номера или оставьте поле пустым')->rules('nullable|min:17');
         $form->text('government_number', __('Гос. номер'))->placeholder(__('Гос. номер'))->rules($need_require ? 'required' : '');
         $form->text('body_number', __('Номер кузова'))->placeholder(__('Номер кузова'))->rules($need_require ? 'required' : '');
         $form->text('chassis', __('Шасси'))->placeholder(__('Шасси'))->rules($need_require ? 'required' : '');
         $form->text('data_sheet', __('Тех. пасспорт'))->placeholder(__('Тех. пасспорт'))->rules($need_require ? 'required' : '');
-        $form->text('type_work_engine', __('Принцип работы двигателя'))->placeholder(__('Принцип работы двигателя'))->rules($need_require ? 'required' : '');
-        $form->text('equipment', __('Комплектация АТС'))->placeholder(__('Комплектация АТС'))->rules($need_require ? 'required' : '');
-        $form->text('state', __('Техническое состояние АТС'))->placeholder(__('Техническое состояние АТС'))->rules($need_require ? 'required' : '');
+        $form->radio('equipment', __('Комплектация АТС'))->placeholder(__('Комплектация АТС'))->options([1 => 'Полная', 0 => 'Не полная'])->default(1)->rules($need_require ? 'required' : '');
+        $form->radio('state', __('Техническое состояние АТС'))->placeholder(__('Техническое состояние АТС'))->options([1 => 'Норм', 0 => 'Не норм'])->default(1)->rules($need_require ? 'required' : '');
         $form->number('auto_length', __('Пробег в км.'))->placeholder(__('Пробег в км.'))->rules($need_require ? 'required' : '');
         
         $form->disableEditingCheck();

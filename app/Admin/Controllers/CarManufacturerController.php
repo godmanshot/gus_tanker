@@ -30,7 +30,6 @@ class CarManufacturerController extends AdminController
 
         $grid->column('id', __('#'));
         $grid->column('name', __('Название'));
-        $grid->column('image', __('Лого'))->image('', 100, 100);
 
         return $grid;
     }
@@ -46,7 +45,6 @@ class CarManufacturerController extends AdminController
         $show = new Show(CarManufacturer::findOrFail($id));
 
         $show->field('id', __('#'));
-        $show->field('image', __('Лого'))->image();
         $show->field('name', __('Название'));
 
         return $show;
@@ -62,7 +60,6 @@ class CarManufacturerController extends AdminController
         $form = new Form(new CarManufacturer());
 
         $form->text('name', __('Название'))->rules('required');
-        $form->image('image', __('Лого'))->rules('required');
 
         return $form;
     }

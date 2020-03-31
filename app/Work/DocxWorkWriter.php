@@ -44,7 +44,6 @@ class DocxWorkWriter extends WorkWriter {
         $manufacturer_country = $this->work->manufacturer_country();
         
         
-        $type_work_engine = $this->work->car->type_work_engine;
         $equipment = $this->work->car->equipment;
         $state = $this->work->car->state;
 
@@ -69,7 +68,6 @@ class DocxWorkWriter extends WorkWriter {
         $templateProcessor->setValue('car_gov_number', $car_gov_number);
         $templateProcessor->setValue('vin', $vin);
         $templateProcessor->setValue('auto_length', $auto_length);
-        $templateProcessor->setValue('type_work_engine', $type_work_engine);
         $templateProcessor->setValue('equipment', $equipment);
         $templateProcessor->setValue('state', $state);
         $templateProcessor->setValue('gbo_type', $gbo_type);

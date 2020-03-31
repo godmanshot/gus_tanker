@@ -189,6 +189,12 @@ class WorkController extends AdminController
         $show->field('price', __('Цена'))->color('#dddddd');
         $show->field('prepaid', __('Аванс'));
         $show->field('additional_information', __('Примечание'));
+        $show->field('pay_type', __('Тип оплаты'))->using([
+            0 => 'Наличные',
+            1 => 'Карточка',
+            2 => 'Безнал',
+            2 => 'Кредит/рассрочка'
+        ]);
         $show->field('created_at', __('Создано'));
 
         if($work->ready_time) {

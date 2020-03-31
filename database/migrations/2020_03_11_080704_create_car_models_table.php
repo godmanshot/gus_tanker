@@ -17,9 +17,14 @@ class CreateCarModelsTable extends Migration
             $table->id();
 
             $table->string('name');
+
+            $table->string('modification')->nullable();
             
             $table->unsignedBigInteger('manufacturer_id');
             $table->foreign('manufacturer_id')->references('id')->on('car_manufacturers');
+
+            $table->unsignedBigInteger('service_station_id')->nullable();
+            $table->foreign('service_station_id')->references('id')->on('service_stations');
 
             $table->timestamps();
         });

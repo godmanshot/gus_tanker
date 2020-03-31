@@ -19,6 +19,7 @@ class Work extends Model
         'work_json',
         'status',
         'ready_time',
+        'pay_type',
     ];
     
     private $writer;
@@ -172,7 +173,7 @@ class Work extends Model
     public function reducer() {
         $items = $this->items();
 
-        $reducer = ['id' => $items['gearbox_id'], 'name' => $items['gearbox_manufacturer'].', '.$items['gearbox_model']];
+        $reducer = ['id' => ($items['gearbox_id'] ?? '-'), 'name' => $items['gearbox_manufacturer'].', '.$items['gearbox_model']];
 
         return $reducer;
     }
@@ -180,7 +181,7 @@ class Work extends Model
     public function ecu() {
         $items = $this->items();
 
-        $ecu = ['id' => $items['ecu_id'], 'name' => $items['ecu_manufacturer'].', '.$items['ecu_model']];
+        $ecu = ['id' => ($items['ecu_id'] ?? '-'), 'name' => $items['ecu_manufacturer'].', '.$items['ecu_model']];
 
         return $ecu;
     }
@@ -188,7 +189,7 @@ class Work extends Model
     public function rails() {
         $items = $this->items();
 
-        $rail = ['id' => $items['nozzles_id'], 'name' => $items['nozzles_manufacturer'].', '.$items['nozzles_model']];
+        $rail = ['id' => ($items['nozzles_id'] ?? '-'), 'name' => $items['nozzles_manufacturer'].', '.$items['nozzles_model']];
 
         return $rail;
     }

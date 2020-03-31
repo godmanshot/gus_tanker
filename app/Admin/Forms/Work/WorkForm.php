@@ -35,6 +35,7 @@ class WorkForm extends StepForm
             'additional_information' => $data['work']['additional_information'],
             'work_json' => $data['work']['work_value'],
             'status' => $data['work']['status'],
+            'pay_type' => $data['work']['pay_type'],
         ]);
 
         return redirect()->route('works.show', $work);
@@ -53,7 +54,12 @@ class WorkForm extends StepForm
         $this->number('prepaid', __('Аванс'))->placeholder(__('Аванс'))->rules('required')->default(0);
         $this->textarea('additional_information', __('Примечание'))->rows(5);
         $this->radio('status', __('Статус'))->options([0 => 'Просто создать', 1 => 'Создать и взять в работу', 2 => 'Взять в работу и закончить'])->default('0')->stacked();
-
+        $this->radio('pay_type', __('Тип оплаты'))->options([
+            0 => 'Наличные',
+            1 => 'Карточка',
+            2 => 'Безнал',
+            2 => 'Кредит/рассрочка'
+        ])->default('0')->stacked();
     }
 
     /**

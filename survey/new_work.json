@@ -312,8 +312,7 @@
         "name": "gearbox_id",
         "title": {
          "ru": "Номер редуктора"
-        },
-        "isRequired": true
+        }
        }
       ],
       "visibleIf": "{install_or_service} = 'Установка'"
@@ -357,8 +356,7 @@
         "name": "nozzles_id",
         "title": {
          "ru": "Номер форсунок"
-        },
-        "isRequired": true
+        }
        }
       ],
       "visibleIf": "{install_or_service} = 'Установка'"
@@ -404,8 +402,7 @@
         "name": "ecu_id",
         "title": {
          "ru": "Номер ЭБУ"
-        },
-        "isRequired": true
+        }
        }
       ],
       "visibleIf": "{install_or_service} = 'Установка'"

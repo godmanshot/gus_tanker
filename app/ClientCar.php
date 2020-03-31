@@ -16,7 +16,6 @@ class ClientCar extends Model
         'body_number',
         'chassis',
         'data_sheet',
-        'type_work_engine',
         'equipment',
         'state',
     ];
