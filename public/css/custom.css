@@ -1,0 +1,8 @@
+.select-options-more {
+    color: #3c8dbc !important;
+    display: none;
+}
+
+.select-options-more.collapsed {
+    display: none !important;
+}

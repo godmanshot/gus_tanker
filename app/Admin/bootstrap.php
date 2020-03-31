@@ -48,3 +48,6 @@
 }
 ");
 
+\Encore\Admin\Facades\Admin::js('/js/custom.js');
+\Encore\Admin\Facades\Admin::css('/css/custom.css');
+

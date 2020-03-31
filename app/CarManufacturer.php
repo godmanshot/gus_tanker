@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class CarManufacturer extends Model
 {
+    public $fillable = [
+        'id',
+        'name',
+    ];
+
     public function models()
     {
         return $this->hasMany('App\CarModel', 'manufacturer_id', 'id');

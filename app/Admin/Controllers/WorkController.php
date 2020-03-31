@@ -64,9 +64,17 @@ class WorkController extends AdminController
             Admin::style('.grid-selector .select-label {line-height: 2rem;}');
 
             if(!empty($items['manufacturer'])) {
+                $manufacturers->prepend($manufacturers[$items['manufacturer'][0]], $items['manufacturer'][0]);
+            }
+
+            if(!empty($items['manufacturer'])) {
                 $models = CarModel::where('manufacturer_id', $items['manufacturer'][0])->get()->keyBy('id')->pluck('name', 'id');
             } else {
                 $models = CarModel::get()->keyBy('id')->pluck('name', 'id');
+            }
+
+            if(!empty($items['model'])) {
+                $models->prepend($models[$items['model'][0]], $items['model'][0]);
             }
 
             /**

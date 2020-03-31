@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class CarModel extends Model
 {
+    public $fillable = [
+        'id',
+        'name',
+        'modification',
+        'manufacturer_id',
+        'service_station_id',
+    ];
     
     public function manufacturer()
     {
