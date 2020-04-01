@@ -61,6 +61,7 @@ Route::group([
         $request->validate([
             'status' => 'required|in:0,1,2'
         ]);
+        
 
         $work->status = $request->status;
 
@@ -70,6 +71,11 @@ Route::group([
             $work->ready_time = null;
         } elseif($request->status == \App\Work::STATUS_READY) {
             $work->ready_time = now();
+
+            if($request->filled('paid')) {
+                $work->paid = $work->paid+$request->paid;
+                $work->paid_comment = $request->paid_comment;
+            }
         }
         
         $work->save();

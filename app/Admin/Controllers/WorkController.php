@@ -142,7 +142,7 @@ class WorkController extends AdminController
             return $price;
         });
 
-        $grid->column('prepaid', __('Аванс'))->display(function ($price) {
+        $grid->column('paid', __('Оплачено'))->display(function ($price) {
             return $price;
         });
 
@@ -180,9 +180,11 @@ class WorkController extends AdminController
 
         $show->divider();
 
-        $show->status(__('Сменить статус'))->changeStatus();
+        if(!$work->isReady()) {
+            $show->status(__('Сменить статус'))->changeStatus();
+        }
 
-            $show->work_json(__('Работа'))->work();
+        $show->work_json(__('Работа'))->work();
 
         $show->divider();
 
@@ -194,9 +196,22 @@ class WorkController extends AdminController
 
         $show->divider();
 
-        $show->field('price', __('Цена'))->color('#dddddd');
-        $show->field('prepaid', __('Аванс'));
-        $show->field('additional_information', __('Примечание'));
+        $show->field('price', __('Цена'))->color('#dddddd')->as(function ($price) {
+            return currency($price);
+        });
+
+        $show->field('paid', __('Оплачено'))->as(function ($paid) {
+            return currency($paid);
+        });
+
+        if(!empty($work->paid_comment)) {
+            $show->field('paid_comment', __('Примечание к оплате'));
+        }
+
+        if(!empty($work->additional_information)) {
+            $show->field('additional_information', __('Примечание'));
+        }
+
         $show->field('pay_type', __('Тип оплаты'))->using([
             0 => 'Наличные',
             1 => 'Карточка',
@@ -204,6 +219,17 @@ class WorkController extends AdminController
             2 => 'Кредит/рассрочка'
         ]);
         $show->field('created_at', __('Создано'));
+
+
+        if(!empty($work->number_contract)) {
+            $show->field('number_contract', __('На основании заключения №'));
+        }
+        if(!empty($work->date_contract)) {
+            $show->field('date_contract', __('Дата заключения'));
+        }
+        if(!empty($work->issuing_authority)) {
+            $show->field('issuing_authority', __('Орган выдавший заключение'));
+        }
 
         if($work->ready_time) {
             $show->field('ready_time', __('Закончено'));

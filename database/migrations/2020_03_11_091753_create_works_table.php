@@ -23,7 +23,9 @@ class CreateWorksTable extends Migration
             $table->foreign('car_id')->references('id')->on('client_cars');
 
             $table->integer('price');
-            $table->integer('prepaid')->nullable();
+            $table->integer('paid')->nullable();
+            $table->text('paid_comment')->nullable();
+            
             $table->text('additional_information')->nullable();
 
             $table->text('work_json')->nullable();
@@ -32,6 +34,11 @@ class CreateWorksTable extends Migration
             $table->timestamp('ready_time')->nullable();
 
             $table->tinyInteger('pay_type')->nullable();
+
+            $table->string('number_contract')->nullable();
+            $table->date('date_contract')->nullable();
+
+            $table->string('issuing_authority')->nullable();
 
             $table->timestamps();
         });

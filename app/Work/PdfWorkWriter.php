@@ -29,6 +29,7 @@ class PdfWorkWriter extends WorkWriter {
 
         $client_info = $this->work->client->info;
 
+        $work_url = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=".route('works.show', $this->work);
         
         $warranty_text = $this->work->warranty_text();
 
@@ -72,7 +73,7 @@ class PdfWorkWriter extends WorkWriter {
         $balloons_html = '';
         $i = 1;
         foreach ($balloons as $balloon) {
-            $balloons_html .= <<<EOT
+            $balloons_html .= <<<HTML
 
             <tr>
                 <td style="width: 33%;padding: 5px 10px;">
@@ -85,11 +86,11 @@ class PdfWorkWriter extends WorkWriter {
                     {$balloon['id']}
                 </td>
             </tr>
-EOT;
+HTML;
             $i++;
         }
 
-        $html = <<<EOT
+        $html = <<<HTML
         <html>
         <head>
         <style>
@@ -98,13 +99,19 @@ EOT;
                 font-size: 14px;
             }
             header {
-                background-color: #0073b9;
+                background-color: #ff8f01;
+            }
+            header table {
+                margin: 0;
+                padding: 0;
+            }
+            header table td {
                 color: #fff;
                 text-align: center;
                 font-size: 2rem;
                 font-family: roboto_slab_black;
                 text-transform: uppercase;
-                padding: 30px 0;
+                padding: 10px 0;
             }
             .content {
                 padding: 40px 50px;
@@ -120,10 +127,16 @@ EOT;
         </head>
         <body>
             <header>
-                Гарантийный талон
+                <table style="overflow: wrap; width: 100%;">
+                    <tr>
+                        <td style="width: 15%;"><img src="$work_url" style="width: 90px; height: 90px;"/></td>
+                        <td style="width: 70%;"><span>Гарантийный талон</span></td>
+                        <td style="width: 15%;"></td>
+                    </tr>
+                </table>
             </header>
             <div class="content">
-                <p style="color: #0073b9; paddin-bottom: 30px;">Зарегистрируйте гарантийный талон на сайте okgas.ru и получите по электронной почте инструкции по эксплуатации ГБО.</p>
+                <p style="color: #ff8f01; paddin-bottom: 30px;">Зарегистрируйте гарантийный талон на сайте okgas.ru и получите по электронной почте инструкции по эксплуатации ГБО.</p>
                 <table width="100%" style="overflow: visible;">
                     <tr>
                         <td style="">
@@ -231,7 +244,7 @@ EOT;
                 </table>
                 <table width="100%" style="overflow: wrap;" border="1" style="border-collapse: collapse">
                     <tr>
-                        <td colspan="2" style="text-align: center;background-color: #0073b9;color: #fff;font-family: roboto_slab_black;text-transform: uppercase;padding:10px;">
+                        <td colspan="2" style="text-align: center;background-color: #ff8f01;color: #fff;font-family: roboto_slab_black;text-transform: uppercase;padding:10px;">
                             Автомобиль
                         </td>
                     </tr>
@@ -270,7 +283,7 @@ EOT;
                 </table>
                 <table width="100%" style="overflow: wrap;" border="1" style="border-collapse: collapse">
                     <tr>
-                        <td colspan="3" style="text-align: center;background-color: #0073b9;color: #fff;font-family: roboto_slab_black;text-transform: uppercase;padding:10px;">
+                        <td colspan="3" style="text-align: center;background-color: #ff8f01;color: #fff;font-family: roboto_slab_black;text-transform: uppercase;padding:10px;">
                             Газобаллонное оборудование
                         </td>
                     </tr>
@@ -323,11 +336,11 @@ EOT;
             </div>
         </body>
         </html>
-EOT;
+HTML;
         $mpdf->WriteHTML($html);
         $mpdf->WriteHTML('<pagebreak resetpagenum="1" pagenumstyle="a" suppress="off" />');
         $talon_img = base_path('public/images/talons.jpg');
-        $talons = <<<EOT
+        $talons = <<<HTML
 <html>
 <head>
 <style>
@@ -336,13 +349,19 @@ EOT;
         font-size: 14px;
     }
     header {
-        background-color: #0073b9;
+        background-color: #ff8f01;
+    }
+    header table {
+        margin: 0;
+        padding: 0;
+    }
+    header table td {
         color: #fff;
         text-align: center;
         font-size: 2rem;
         font-family: roboto_slab_black;
         text-transform: uppercase;
-        padding: 30px 0;
+        padding: 10px 0;
     }
     .content {
         padding: 40px 50px;
@@ -358,17 +377,23 @@ EOT;
 </head>
 <body>
     <header>
-        Талоны техобслуживания
+        <table style="overflow: wrap; width: 100%;">
+            <tr>
+                <td style="width: 15%;"><img src="$work_url" style="width: 90px; height: 90px;"/></td>
+                <td style="width: 70%;"><span>Талоны техобслуживания</span></td>
+                <td style="width: 15%;"></td>
+            </tr>
+        </table>
     </header>
     <div class="content">
         <img src="$talon_img" width="100%"/>
     </div>
 </body>
 </html>
-EOT;
+HTML;
         $mpdf->WriteHTML($talons);
         $mpdf->WriteHTML('<pagebreak resetpagenum="1" pagenumstyle="a" suppress="off" />');
-        $reglament = <<<EOT
+        $reglament = <<<HTML
 <html>
 <head>
 <style>
@@ -377,13 +402,19 @@ EOT;
         font-size: 14px;
     }
     header {
-        background-color: #0073b9;
+        background-color: #ff8f01;
+    }
+    header table {
+        margin: 0;
+        padding: 0;
+    }
+    header table td {
         color: #fff;
         text-align: center;
         font-size: 2rem;
         font-family: roboto_slab_black;
         text-transform: uppercase;
-        padding: 30px 0;
+        padding: 10px 0;
     }
     .content {
         padding: 40px 50px;
@@ -399,10 +430,16 @@ EOT;
 </head>
 <body>
     <header>
-        Регламент ТО
+        <table style="overflow: wrap; width: 100%;">
+            <tr>
+                <td style="width: 15%;"><img src="$work_url" style="width: 90px; height: 90px;"/></td>
+                <td style="width: 70%;"><span>Регламент ТО</span></td>
+                <td style="width: 15%;"></td>
+            </tr>
+        </table>
     </header>
     <div class="content">
-        <p style="color: #0073b9; paddin-bottom: 30px;text-align: center;">Периодичность ТО указана на стр. 1.</p>
+        <p style="color: #ff8f01; paddin-bottom: 30px;text-align: center;">Периодичность ТО указана на стр. 1.</p>
         <table width="100%" border="1" style="overflow: hidden;border-collapse: collapse; text-align: center;font-size: 0.7rem;" autosize="1">
             <tr style="background-color: #f0f0f0;">
                 <td style="width:10%">
@@ -656,10 +693,10 @@ EOT;
     </div>
 </body>
 </html>
-EOT;
+HTML;
 $mpdf->WriteHTML($reglament);
 $mpdf->WriteHTML('<pagebreak resetpagenum="1" pagenumstyle="a" suppress="off" />');
-$conditions = <<<EOT
+$conditions = <<<HTML
 <html>
 <head>
 <style>
@@ -668,13 +705,19 @@ $conditions = <<<EOT
         font-size: 14px;
     }
     header {
-        background-color: #0073b9;
+        background-color: #ff8f01;
+    }
+    header table {
+        margin: 0;
+        padding: 0;
+    }
+    header table td {
         color: #fff;
         text-align: center;
         font-size: 2rem;
         font-family: roboto_slab_black;
         text-transform: uppercase;
-        padding: 30px 0;
+        padding: 10px 0;
     }
     .content {
         padding: 40px 50px;
@@ -690,10 +733,16 @@ $conditions = <<<EOT
 </head>
 <body>
     <header>
-        Гарантийные условия
+        <table style="overflow: wrap; width: 100%;">
+            <tr>
+                <td style="width: 15%;"><img src="$work_url" style="width: 90px; height: 90px;"/></td>
+                <td style="width: 70%;"><span>Гарантийные условия</span></td>
+                <td style="width: 15%;"></td>
+            </tr>
+        </table>
     </header>
     <div class="content">
-        <p style="color: #0073b9; paddin-bottom: 30px;">Гарантийные условия</p>
+        <p style="color: #ff8f01; paddin-bottom: 30px;">Гарантийные условия</p>
         <div class="conditions">$warranty_text</div>
         <table width="100%" style="overflow: visible;">
             <tr>
@@ -720,7 +769,7 @@ $conditions = <<<EOT
     </div>
 </body>
 </html>
-EOT;
+HTML;
         $mpdf->WriteHTML($conditions);
                 
         $mpdf->Output($path.'/'.time().'.pdf', 'F');

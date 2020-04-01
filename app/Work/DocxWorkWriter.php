@@ -42,6 +42,12 @@ class DocxWorkWriter extends WorkWriter {
         $gbo_type = $this->work->gbo_type();
         $ballon_manufacturer = $this->work->ballon_manufacturer();
         $manufacturer_country = $this->work->manufacturer_country();
+        $work_url = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=".route('works.show', $this->work);
+        if(!empty($this->work->number_contract) && !empty($this->work->date_contract) && !empty($this->work->issuing_authority)) {
+            $authority = "В соответствии с Заключением о возможности и порядке внесения изменений в конструкцию АТС №".$this->work->number_contract." от ".$this->work->date_contract.",\nвыданным: ".$this->work->issuing_authority;
+        } else {
+            $authority = "";
+        }
         
         
         $equipment = $this->work->car->equipment;
@@ -74,6 +80,8 @@ class DocxWorkWriter extends WorkWriter {
         $templateProcessor->setValue('manufacturer_country', $manufacturer_country);
         $templateProcessor->setValue('ballon_manufacturer', $ballon_manufacturer);
         $templateProcessor->setValue('balloons', $balloons);
+        $templateProcessor->setImageValue('qr_code', $work_url);
+        $templateProcessor->setValue('authority', $authority);
         
         $templateProcessor->saveAs($path.'/'.time().'.docx');
 

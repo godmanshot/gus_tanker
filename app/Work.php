@@ -14,12 +14,16 @@ class Work extends Model
         'client_id',
         'car_id',
         'price',
-        'prepaid',
+        'paid',
+        'paid_comment',
         'additional_information',
         'work_json',
         'status',
         'ready_time',
         'pay_type',
+        'number_contract',
+        'date_contract',
+        'issuing_authority',
     ];
     
     private $writer;
@@ -288,7 +292,7 @@ class Work extends Model
 
     public static function statisticsByMonth($month = 6)
     {
-        $work = Work::selectRaw("SUM(price) as sum, DATE_FORMAT(created_at,'%Y.%m') as month")->groupBy(\Illuminate\Support\Facades\DB::raw("DATE_FORMAT(created_at,'%Y.%m')"))->orderBy(\Illuminate\Support\Facades\DB::raw("DATE_FORMAT(created_at,'%Y.%m')"))->limit($month);
+        $work = Work::selectRaw("SUM(paid) as sum, DATE_FORMAT(created_at,'%Y.%m') as month")->groupBy(\Illuminate\Support\Facades\DB::raw("DATE_FORMAT(created_at,'%Y.%m')"))->orderBy(\Illuminate\Support\Facades\DB::raw("DATE_FORMAT(created_at,'%Y.%m')"))->limit($month);
         $_sum_months = $work->withoutGlobalScope('currentStation')->get()->keyBy('month');
         
         $sum_months = [];
@@ -296,10 +300,19 @@ class Work extends Model
         $now = now();
 
         for($i = 0; $i < $month; $i++) {
-            $_month = $now->subMonth(1)->format("Y.m");
+            if($i == 0) {
+                $_month = $now->format("Y.m");
+            } else {
+                $_month = $now->subMonth(1)->format("Y.m");
+            }
             $sum_months[$_month] = isset($_sum_months[$_month]) ? (int)$_sum_months[$_month]->sum : 0;
         }
 
         return $sum_months;
+    }
+
+    public function isReady()
+    {
+        return $this->status == self::STATUS_READY;
     }
 }

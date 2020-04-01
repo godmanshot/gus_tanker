@@ -31,11 +31,14 @@ class WorkForm extends StepForm
             'client_id' => $data['client']['client']->id,
             'car_id' => $data['car']['car']->id,
             'price' => $data['work']['price'],
-            'prepaid' => $data['work']['prepaid'],
+            'paid' => $data['work']['prepaid'],
             'additional_information' => $data['work']['additional_information'],
             'work_json' => $data['work']['work_value'],
             'status' => $data['work']['status'],
             'pay_type' => $data['work']['pay_type'],
+            'number_contract' => $data['work']['number_contract'],
+            'date_contract' => $data['work']['date_contract'],
+            'issuing_authority' => $data['work']['issuing_authority'],
         ]);
 
         return redirect()->route('works.show', $work);
@@ -53,13 +56,18 @@ class WorkForm extends StepForm
         $this->number('price', __('Цена'))->placeholder(__('Цена'))->rules('required');
         $this->number('prepaid', __('Аванс'))->placeholder(__('Аванс'))->rules('required')->default(0);
         $this->textarea('additional_information', __('Примечание'))->rows(5);
-        $this->radio('status', __('Статус'))->options([0 => 'Просто создать', 1 => 'Создать и взять в работу', 2 => 'Взять в работу и закончить'])->default('0')->stacked();
+        $this->radio('status', __('Статус'))->options([0 => 'Просто создать', 1 => 'Создать и взять в работу'])->default('0')->stacked();
         $this->radio('pay_type', __('Тип оплаты'))->options([
             0 => 'Наличные',
             1 => 'Карточка',
             2 => 'Безнал',
             2 => 'Кредит/рассрочка'
         ])->default('0')->stacked();
+
+        $this->text('number_contract', __('На основании заключения №'))->placeholder(__('На основании заключения №'));
+        $this->date('date_contract', __('Дата заключения'))->placeholder(__('Дата заключения'));
+        $this->text('issuing_authority', __('Орган выдавший заключение'))->placeholder(__('Орган выдавший заключение'));
+        
     }
 
     /**

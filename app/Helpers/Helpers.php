@@ -11,4 +11,12 @@ if (!function_exists('station')) {
     function station() {
         return resolve(ServiceStation::class);
     }
+    
+    /**
+     * Форматирование цены
+     */
+    function currency($price = 0) {
+        $station_currency = station()->currency;
+        return $price.' '.$station_currency;
+    }
 }
