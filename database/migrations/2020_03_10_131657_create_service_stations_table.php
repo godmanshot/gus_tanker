@@ -19,11 +19,11 @@ class CreateServiceStationsTable extends Migration
             $table->string("full_name");
             $table->string("id_of_company");
             $table->string("boss_otk");
-            $table->string("image");
+            $table->string("image")->nullable();
             $table->string("phone");
             $table->string("address");
             $table->string("currency");
-            $table->string("timezone");
+            $table->string("timezone")->nullable();
             $table->integer("warranty_exp_month");
             $table->integer("warranty_exp_lenght");
             $table->integer("to_period");
@@ -31,6 +31,7 @@ class CreateServiceStationsTable extends Migration
             $table->string("response_person");
             $table->longText("warranty_text");
             $table->string("сertificate_install");
+            $table->longText("files")->nullable();
             
             $table->timestamps();
         });

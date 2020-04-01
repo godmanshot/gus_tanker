@@ -22,6 +22,11 @@ class ServiceStation extends Model
         'city_name',
         'response_person',
         'warranty_text',
+        'files',
+    ];
+
+    protected $casts = [
+        'files' => 'array',
     ];
 
     public function clients()

@@ -87,13 +87,14 @@ Route::group([
         
         \Debugbar::disable();
         $path = storage_path('temp');
+        $station = $work->station()->first();
 
         $pdf_writer = new \App\Work\PdfWorkWriter();
         $pdf_writer->setWork($work);
-        $pdf_writer->setStation($work->station()->first());
+        $pdf_writer->setStation($station);
         $word_writer = new \App\Work\DocxWorkWriter();
         $word_writer->setWork($work);
-        $word_writer->setStation($work->station()->first());
+        $word_writer->setStation($station);
         
         $pdf = $pdf_writer->write($path);
         $word = $word_writer->write($path, base_path("resources/docx_templates/gai_template.docx"));
@@ -104,7 +105,9 @@ Route::group([
 
         $zip->addFile($pdf, 'Гарантийный талон.pdf');
         $zip->addFile($word, 'Документ ГАИ.docx');
-
+        
+        $zip->addGlob(storage_path('app/public/stations/'.$station->id.'/*'), GLOB_BRACE, ['remove_all_path' => TRUE]);
+        
         $zip->close();
 
         header('Content-Type: application/zip');
