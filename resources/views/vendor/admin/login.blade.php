@@ -34,6 +34,11 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
+    @if(request()->has('reg_success'))
+    <div class="alert alert-success" role="alert">
+      Вы успешно зарегистрировались!
+    </div>
+    @endif
     <p class="login-box-msg">{{ trans('admin.login') }}</p>
 
     <form action="{{ admin_url('auth/login') }}" method="post">
