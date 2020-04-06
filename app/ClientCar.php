@@ -55,4 +55,15 @@ class ClientCar extends Model
         return $this->auto_length.' км.';
     }
 
+    protected static function booted()
+    {
+        static::addGlobalScope('currentStation', function ($builder) {
+            $builder->currentStation();
+        });
+    }
+
+    public function scopeCurrentStation($query)
+    {
+        return $query->whereHas('client');
+    }
 }
