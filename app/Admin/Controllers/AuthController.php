@@ -53,6 +53,8 @@ class AuthController extends BaseAuthController
 
             $form->model()->roles()->attach($roleModel::where('id', 2)->get());
             \App\ServiceStationUser::create(['service_station_id' => $this->createStation()->id, 'user_id' => $form->model()->id]);
+            
+            admin_toastr(__('Регистрация прошла успешно!'), 'success');
 
             return redirect('/admin');
         });
