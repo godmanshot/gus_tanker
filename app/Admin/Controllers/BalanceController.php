@@ -60,6 +60,10 @@ HTML;
             'price' => 'required'
         ]);
 
+        $station = station();
+        $station->balance += (int)$request->price;
+        $station->save();
+
         $client = new \GuzzleHttp\Client([
             'base_uri' => 'https://api.paybox.money'
         ]);
@@ -67,7 +71,7 @@ HTML;
         $uuid = \Ramsey\Uuid\Uuid::uuid4()->toString();
 
         $recharge = \App\BalanceRecharge::create([
-            'service_station_id' => station()->id,
+            'service_station_id' => $station->id,
             'price' => (int)$request->price,
             'uuid' => $uuid,
             'status' => 1,
