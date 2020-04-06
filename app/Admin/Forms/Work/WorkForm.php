@@ -39,6 +39,7 @@ class WorkForm extends StepForm
             'number_contract' => $data['work']['number_contract'],
             'date_contract' => $data['work']['date_contract'],
             'issuing_authority' => $data['work']['issuing_authority'],
+            'сertificate_install' => $data['work']['сertificate_install'],
         ]);
 
         return redirect()->route('works.show', $work);
@@ -64,6 +65,7 @@ class WorkForm extends StepForm
             2 => 'Кредит/рассрочка'
         ])->default('0')->stacked();
 
+        $this->text('сertificate_install', __('Свидетельство о согласовании конструкции'))->placeholder(__('Свидетельство о согласовании конструкции'))->rules('required');
         $this->text('number_contract', __('На основании заключения №'))->placeholder(__('На основании заключения №'));
         $this->date('date_contract', __('Дата заключения'))->placeholder(__('Дата заключения'));
         $this->text('issuing_authority', __('Орган выдавший заключение'))->placeholder(__('Орган выдавший заключение'));

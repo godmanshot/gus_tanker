@@ -28,8 +28,8 @@ class DocxWorkWriter extends WorkWriter {
         $id_of_company = $station->id_of_company;
         $station_boss = $station->boss_otk;
         $station_full_name = $station->full_name;
-        $сertificate_install = $station->сertificate_install;
-
+        
+        $сertificate_install = $this->work->сertificate_install;
         $work_id = $this->work->id;
         $client_info = $this->work->client->info;
         $client_address = $this->work->client->address;

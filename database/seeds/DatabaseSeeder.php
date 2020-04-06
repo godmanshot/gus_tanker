@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ServiceStationClientSeed::class);
         $this->call(MenuSeed::class);
         $this->call(TechInspectionSeed::class);
+        $this->call(RoleSeed::class);
     }
 }

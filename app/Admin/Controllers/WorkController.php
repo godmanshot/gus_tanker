@@ -189,9 +189,21 @@ class WorkController extends AdminController
         $show->divider();
 
         if($work->isInstall()) {
-            $show->documents(__('Документы'))->as(function () {
-                return "Документы";
-            })->link(route('works.documents', $work));
+            if($work->isPurchased) {
+                $show->documents(__('Документы'))->as(function () {
+                    return "Скачать пакет документов (Оплачено)";
+                })->link(route('works.documents', $work));
+            } else {
+                if(station()->canBuyDocuments()) {
+                    $show->documents(__('Документы'))->as(function () {
+                        return "Скачать пакет документов (Стоимость - ".config('app.documents_price')."$, покупается один раз)";
+                    })->link(route('works.documents', $work));
+                } else {
+                    $show->documents(__('Документы'))->as(function () {
+                        return "Скачать пакет документов (Стоимость - ".config('app.documents_price')."$, покупается один раз); Не хватает баланса!";
+                    });
+                }
+            }
         }
 
         $show->divider();

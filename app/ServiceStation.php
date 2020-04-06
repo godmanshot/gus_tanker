@@ -22,6 +22,7 @@ class ServiceStation extends Model
         'city_name',
         'response_person',
         'warranty_text',
+        'balance',
         'files',
     ];
 
@@ -64,4 +65,19 @@ class ServiceStation extends Model
         return $this->warranty_text;
     }
 
+    public function getBalanceFAttribute()
+    {
+        return $this->balance.'$';
+    }
+
+    public function canBuyDocuments()
+    {
+        return ($this->balance - config('app.documents_price')) >= 0;
+    }
+
+    public function buyDocuments()
+    {
+        $this->balance -= config('app.documents_price');
+        $this->save();
+    }
 }

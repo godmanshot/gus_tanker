@@ -7,6 +7,17 @@ use Illuminate\Routing\Router;
 
 Admin::routes();
 
+Route::get('paybox-result', function(Request $request) {
+    
+});
+
+Route::get('/admin/auth/register', 'App\Admin\Controllers\AuthController@register')->middleware(config('admin.route.middleware'));
+Route::post('/admin/auth/register', 'App\Admin\Controllers\AuthController@store')->middleware(config('admin.route.middleware'));
+
+// Route::post('/admin/register', function(Request $request) {
+//     dd(config('admin.route.namespace'));
+// });
+
 Route::group([
     'prefix'        => config('admin.route.prefix'),
     'namespace'     => config('admin.route.namespace'),
@@ -21,6 +32,9 @@ Route::group([
     $router->resource('works', WorkController::class);
     $router->resource('service-stations', StationController::class);
     $router->resource('tech-inspections', TechInspectionController::class);
+
+    $router->get('/balance', 'BalanceController@index');
+    $router->get('/balance/recharge', 'BalanceController@recharge');
     
     Route::get('/api/clients', function(Request $request) {
         $q = $request->get('q');
@@ -84,7 +98,11 @@ Route::group([
     })->name('works.status');
     
     Route::get('/works/{work}/documents', function(Request $request, \App\Work $work) {
-        
+        if(!station()->canBuyDocuments() && !$work->isPurchased) {
+            admin_toastr(__('Недостаточно баланса!'), 'error');
+            return redirect()->back();
+        }
+
         \Debugbar::disable();
         $path = storage_path('temp');
         $station = $work->station()->first();
@@ -117,9 +135,15 @@ Route::group([
         readfile($file);
         unlink($file);
 
+        if(!$work->isPurchased) {
+            station()->buyDocuments();
+            $work->purchase();
+        }
+        
         (new \Illuminate\Filesystem\Filesystem)->cleanDirectory($path);
 
     })->name('works.documents');
     
+
 });
 

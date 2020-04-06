@@ -37,8 +37,12 @@ class CreateWorksTable extends Migration
 
             $table->string('number_contract')->nullable();
             $table->date('date_contract')->nullable();
+            
+            $table->string("сertificate_install")->nullable();
 
             $table->string('issuing_authority')->nullable();
+
+            $table->tinyInteger('documents_is_purchased')->default(0)->nullable();
 
             $table->timestamps();
         });

@@ -43,7 +43,6 @@ class StationController extends AdminController
         $form->text('name', __('Название'))->help('Газамир-ПРО')->rules('required');
         $form->text('full_name', __('Полное название'))->help('Например: ТОО «Газамир-ПРО»')->rules('required');
         $form->text('id_of_company', __('Регистрационный номер'))->rules('required');
-        $form->text('сertificate_install', __('Свидетельство о согласовании конструкции'))->rules('required');
         $form->text('boss_otk', __('Название'))->rules('required');
 
         $form->image('image', __('Логотип'))->removable();

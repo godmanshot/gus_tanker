@@ -42,7 +42,7 @@ EOT;
             'city_name' => 'Алматы',
             'response_person' => 'Ли Максим Владиславович',
             'warranty_text' => $text,
-            'сertificate_install' => '№ 6-7-87/1294 от 09.04.2012',
+            'balance' => 100,
             'created_at' => NULL,
             'updated_at' => NULL,
         ]);

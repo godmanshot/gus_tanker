@@ -24,6 +24,7 @@ class Work extends Model
         'number_contract',
         'date_contract',
         'issuing_authority',
+        'сertificate_install'
     ];
     
     private $writer;
@@ -314,5 +315,16 @@ class Work extends Model
     public function isReady()
     {
         return $this->status == self::STATUS_READY;
+    }
+
+    public function getIsPurchasedAttribute()
+    {
+        return $this->documents_is_purchased;
+    }
+
+    public function purchase()
+    {
+        $this->documents_is_purchased = true;
+        $this->save();
     }
 }
