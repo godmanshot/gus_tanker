@@ -7,9 +7,7 @@ use Illuminate\Routing\Router;
 
 Admin::routes();
 
-Route::get('paybox-result', function(Request $request) {
-    
-});
+Route::post('paybox-result', 'App\Admin\Controllers\BalanceController@payboxResult');
 
 Route::get('/admin/auth/register', 'App\Admin\Controllers\AuthController@register')->middleware(config('admin.route.middleware'));
 Route::post('/admin/auth/register', 'App\Admin\Controllers\AuthController@store')->middleware(config('admin.route.middleware'));
@@ -144,6 +142,6 @@ Route::group([
 
     })->name('works.documents');
     
-
+    
 });
 

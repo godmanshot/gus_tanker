@@ -61,8 +61,8 @@ HTML;
         ]);
 
         $station = station();
-        $station->balance += (int)$request->price;
-        $station->save();
+        // $station->balance += (int)$request->price;
+        // $station->save();
 
         $client = new \GuzzleHttp\Client([
             'base_uri' => 'https://api.paybox.money'
@@ -101,6 +101,11 @@ HTML;
         $recharge->save();
 
         return redirect($response['payment_page_url']);
+    }
+
+    public function payboxResult(Request $request)
+    {
+        return 1;
     }
 }
 ?>
