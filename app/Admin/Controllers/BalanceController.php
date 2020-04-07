@@ -65,7 +65,7 @@ HTML;
         $recharge = \App\BalanceRecharge::create([
             'service_station_id' => $station->id,
             'price' => (int)$request->price,
-            'status' => 1,
+            'status' => 0,
         ]);
 
         $request = [
@@ -94,7 +94,20 @@ HTML;
 
     public function payboxResult(Request $request)
     {
-        throw new \Exception(json_encode($request->all()), 1);
+        $order_id = $request->input('pg_order_id');
+        $order_status = $request->input('pg_result');
+        $amount = $request->input('pg_amount');
+
+        $recharge = \App\BalanceRecharge::where('id', $order_id)->where('status', 0)->first();
+
+        if($recharge && ($order_status == 1)) {
+            $recharge->status = 1;
+            $recharge->save();
+            $station = $recharge->station;
+
+            $station->balance += $amount;
+            $station->save();
+        }
         
         return 1;
     }

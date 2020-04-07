@@ -13,4 +13,9 @@ class BalanceRecharge extends Model
         'status',
         'paybox_id',
     ];
+    
+    public function station()
+    {
+        return $this->hasOne('App\ServiceStation');
+    }
 }
