@@ -28,7 +28,7 @@ class CarModel extends Model
 
     public function station()
     {
-        return $this->hasOne('App\ServiceStation', 'id');
+        return $this->hasOne('App\ServiceStation', 'id', 'service_station_id');
     }
     
     protected static function booted()
