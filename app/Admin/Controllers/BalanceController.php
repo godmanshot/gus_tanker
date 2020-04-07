@@ -94,6 +94,8 @@ HTML;
 
     public function payboxResult(Request $request)
     {
+        throw new \Exception(json_encode($request->all()), 1);
+        
         return 1;
     }
 }
