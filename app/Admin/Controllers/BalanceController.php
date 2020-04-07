@@ -94,6 +94,12 @@ HTML;
 
     public function payboxResult(Request $request)
     {
+        $request->validate([
+            'pg_order_id' => 'required',
+            'pg_result' => 'required',
+            'pg_amount' => 'required',
+        ]);
+        
         $order_id = $request->input('pg_order_id');
         $order_status = $request->input('pg_result');
         $amount = $request->input('pg_amount');
@@ -109,7 +115,7 @@ HTML;
             $station->save();
         }
         
-        return 1;
+        return true;
     }
 }
 ?>
