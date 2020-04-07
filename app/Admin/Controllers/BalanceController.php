@@ -61,46 +61,35 @@ HTML;
         ]);
 
         $station = station();
-        // $station->balance += (int)$request->price;
-        // $station->save();
-
-        $client = new \GuzzleHttp\Client([
-            'base_uri' => 'https://api.paybox.money'
-        ]);
-
-        $uuid = \Ramsey\Uuid\Uuid::uuid4()->toString();
 
         $recharge = \App\BalanceRecharge::create([
             'service_station_id' => $station->id,
             'price' => (int)$request->price,
-            'uuid' => $uuid,
             'status' => 1,
         ]);
 
-        $r = $client->request('post', '/v4/payments', [
-            'auth' => ['511678','QR3w7eFXCmNOyn5i'],
-            'json' => [
-                "order" => (string)$recharge->id,
-                "amount" => (int)$request->price,
-                "currency" => "USD",
-                "description" => "Пополнение баланса",
-                "options" => [
-                    "callbacks" => [
-                        "result_url" => url('/paybox-result'),
-                    ]
-                ],
-            ],
-            'headers' => [
-                'X-Idempotency-Key' => $uuid,
-            ]
-        ]);
+        $request = [
+            'pg_merchant_id'=> 511678,
+            'pg_amount' => (int)$request->price,
+            'pg_salt' => 'some_random_string',
+            'pg_order_id'=>$recharge->id,
+            'pg_description' => 'Пополнение баланса',
+            'pg_result_url' => url('/paybox-result'),
+            'pg_currency' => 'USD'
+        ];
+        
+        ksort($request);
+        array_unshift($request, 'payment.php');
+        array_push($request, 'QR3w7eFXCmNOyn5i');
+        
+        
+        $request['pg_sig'] = md5(implode(';', $request));
+        
+        unset($request[0], $request[1]);
+        
+        $query = http_build_query($request);
 
-        $response = json_decode((string)$r->getBody(), true);
-
-        $recharge->paybox_id = $response['id'];
-        $recharge->save();
-
-        return redirect($response['payment_page_url']);
+        return redirect('https://api.paybox.money/payment.php?'.$query);
     }
 
     public function payboxResult(Request $request)
