@@ -94,6 +94,9 @@ HTML;
 
     public function payboxResult(Request $request)
     {
+        
+        \Debugbar::disable();
+        
         $request->validate([
             'pg_order_id' => 'required',
             'pg_result' => 'required',
